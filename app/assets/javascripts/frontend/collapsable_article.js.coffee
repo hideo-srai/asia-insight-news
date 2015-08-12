@@ -24,7 +24,6 @@ class window.CollapsableArticle
       @contentArea.css({ height: 'auto' })
       @readMoreButton.hide()
       @readLessButton.show()
-      $(".text").addClass( "opened-article" );
 
       if @path
         window.history.pushState('', '', @path)
@@ -37,6 +36,7 @@ class window.CollapsableArticle
       @contentArea.css({ height: '0' })
       @readLessButton.hide()
       @readMoreButton.show()
+      $(".text").removeClass('opened-article')
 
   markRead: ->
     $.post("/posts/#{@id}/mark-read")
