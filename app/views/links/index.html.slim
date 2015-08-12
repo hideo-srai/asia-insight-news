@@ -1,0 +1,9 @@
+- content_for(:title) { 'Events' }
+h1 Links
+p.pre-news
+.news-list
+  - @links.each do |link|
+    = link_to link.url, class: 'news-block' do
+      span.date = l link.published_at, format: :literal
+      h3 = link.title
+      = link.description

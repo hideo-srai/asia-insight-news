@@ -1,0 +1,15 @@
+div(data-subscriber-form-wrapper)
+  = form_for @subscriber, remote: true, html: { class: 'modal-form subscribe-form' } do |f|
+    .form-title
+      span.number 1s
+      span.title Enter Your information
+    fieldset
+      = f.text_field :first_name, required: true, class: "base-input #{'error' if @subscriber.errors[:first_name].any?}", placeholder: 'First Name'
+      = f.text_field :last_name,  required: true, class: "base-input #{'error' if @subscriber.errors[:last_name].any?}", placeholder: 'Last Name'
+
+      = f.text_field :title,  class: "base-input #{'error' if @subscriber.errors[:title].any?}", placeholder: 'Title'
+      = f.text_field :company, required: true, class: "base-input #{'error' if @subscriber.errors[:company].any?}", placeholder: 'Company Name'
+      = f.text_field :phone_number, required: true, class: "base-input #{'error' if @subscriber.errors[:phone_number].any?}", placeholder: 'Telephone number'
+      = f.email_field :email, required: true, class: "base-input #{'error' if @subscriber.errors[:email].any?}", placeholder: 'E-mail'
+
+      = f.submit 'Register', class: 'btn-blue'

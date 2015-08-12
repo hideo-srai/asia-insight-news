@@ -1,0 +1,33 @@
+nav#navigation
+  a.menu-link.js-menu-link href="#"
+    i.icon.icon-menu
+  #menu.menu-block
+    .sections
+      - @root_sections.each do |root_section|
+        h2
+          - root_section_path = section_posts_path(section_slug: root_section.slug)
+          = active_link_to root_section.name, section_posts_path(section_slug: root_section.slug)
+
+      h2
+        = link_to 'Countries', '#', class: 'with-child'
+        ul.subsections
+          - @countries.each do |country|
+            li
+              = link_to country_posts_path(country_slug: country.slug) do
+                = country.name
+                i.icon.icon-angle-right
+
+    table.bottom-links
+      tr
+        td
+          ul
+            li= link_to 'Login', new_user_session_path
+
+            li= link_to 'About Us', page_path(slug: 'about-us')
+            li= link_to 'Contact', page_path(slug: 'contact')
+            li= link_to 'Press', 'https://mninews.marketnews.com/press-releases', target: '_blank'
+        td
+          ul
+            li= link_to 'Trademarks', 'http://deutsche-boerse.com/dbg/dispatch/en/kir/dbg_nav/home?displayText=footerTrademarks', target: '_blank'
+            li= link_to 'Disclaimer', 'http://deutsche-boerse.com/dbg/dispatch/en/kir/dbg_nav/home?displayText=footerDisclaimer', target: '_blank'
+            li= link_to 'Imprint', 'http://deutsche-boerse.com/dbg/dispatch/en/kir/dbg_nav/home?displayText=footerIMP', target: '_blank'

@@ -1,0 +1,18 @@
+article.news-article
+  header
+    = link_to blog_post_path(blog_post) do
+      h1
+        = blog_post.headline
+    ul.data-list
+      li
+        i.icon.icon-time>
+        = l blog_post.published_at, format: :long
+  .article-body
+    h2= blog_post.readout
+    .image-container
+      = image_tag blog_post.cover.url(:main)
+    == blog_post.readout
+  footer
+    = widget :social_share, :post, url: blog_post_url(id: blog_post.id), title: blog_post.headline, image: (blog_post.cover.url(:main) if blog_post.cover.path)
+    = link_to '', '#', class: 'print-post', 'onClick' => 'print()'
+    = link_to 'Read More', blog_post_path(blog_post), class: 'btn btn-transparent'

@@ -1,0 +1,21 @@
+.call-block.central-banks-sidebar
+  .headline-container
+    h2.title
+      = link_to 'Central banks', central_banks_path
+
+  table.central-banks
+    thead
+      th Central bank
+      th Policy target
+      th Current settings
+      th Next meeting
+      th Change expected
+
+    tbody
+      - @banks.each do |bank|
+        tr
+          td= link_to bank.bank_name, bank.bank_link, target: '_blank'
+          td= bank.policy_target
+          td.text-center= bank.current_settings
+          td.text-center= bank.next_policy_announcement
+          td.text-center= bank.change_expected

@@ -1,0 +1,9 @@
+.authors-page
+  h1.header Blog
+  - if @blog_posts.any?
+    .posts
+      = render partial: 'blog_post', collection: @blog_posts
+    - if @blog_posts.next_page
+      .load-more-posts-container
+        = render 'frontend/posts_loader'
+        = link_to 'Load More Posts', @next_page_path, :class => 'load-more-posts', :remote => true

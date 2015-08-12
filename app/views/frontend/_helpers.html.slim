@@ -1,0 +1,57 @@
+#modal-register.modal.register-modal(data-register-modal)
+  .modal-inner
+    .modal-header
+      a.close-btn(href="#" data-close-modal)
+        i.icon.icon-close
+      h2
+        span.blue
+          | Welcome to
+        | MNI Asia Insight
+    .modal-body
+      = render 'subscribers/form'
+
+#modal-welcome.modal.welcome-popup(data-welcome-modal)
+
+  .modal-inner
+    .modal-header
+      /a.close-btn(href="#" data-close-modal)
+        i.icon.icon-close
+      h2
+        span.blue
+          | Welcome to
+        | MNI Asia Insight
+    .modal-body
+      p Dear reader,
+      br
+      p MNI Asia Insight draws from MNI’s extensive contacts and exceptional relationships with senior Asian policymakers throughout the region to create timely, in-depth, insightful intelligence on the Asian economic and financial policy making process.
+      p When you register you will get open access to the entire Asia Insight website for a limited time. You will also receive email alerts that give you immediate notification of new articles so you never lose your competitive edge on Asian  intelligence.
+      p
+        a>(href="#" data-open-register-modal) Register now
+        | and find out what it's all about.
+      p We thank you in advance for your interest in our product and hope you profit from it.
+      p Feel free to contact us with any questions or comments.
+
+      br
+      p
+        | Sincerely,
+        br
+        | The MNI Asia Insight Team
+        br
+        br
+        ' Contact us on:
+        a href="mailto:asiainsight@mni-news.com" asiainsight@mni-news.com
+
+
+      .buttons
+        a.btn.btn-blue(href="#" data-open-register-modal)
+          | Register
+      /= link_to 'Log in', new_user_session_path, class: 'btn btn-black'
+      /p.blue
+        | Sign up for a free 2 week trial and you will get quick access to all of Asia Insight's content.
+
+#fade(data-fade-overlay)
+
+
+- if session[:post_preview_id]
+  = link_to 'Go back to post editing', edit_admin_post_path(id: session[:post_preview_id]), id: 'go-back-to-admin'
+

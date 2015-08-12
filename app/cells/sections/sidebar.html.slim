@@ -1,0 +1,10 @@
+- if @post
+  .dark-block
+    .dark-header
+      h3= @section.name
+    .dark-content
+      - if @post.cover.path
+        = image_tag @post.cover.url(:sidebar)
+
+      = link_to truncate(@post.headline, length: 90), post_path(@post.id)
+      .date = l @post.published_at, format: :literal

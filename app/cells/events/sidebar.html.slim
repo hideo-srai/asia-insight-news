@@ -1,0 +1,12 @@
+.events.sidebar-block
+  .headline-container
+    h2 COMING UP
+
+  - @events.each do |event|
+    .event-block
+      .country = event.country.name
+      .date = l event.date, format: :short
+      .title = event.title
+
+  .read-more-container
+    = link_to 'Read More', events_path, class: 'btn btn-transparent'

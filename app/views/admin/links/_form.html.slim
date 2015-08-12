@@ -1,0 +1,9 @@
+= simple_form_for [:admin, @link], html: { class: 'form form-horizontal' }, wrapper: :horizontal_form do |f|
+  .form-body
+    = f.input :in_ticker, as: :boolean
+    = f.input :url, as: :string
+    = f.input :title
+    = f.input :description, as: :text
+    = f.input :published_at, as: :string, label: 'Publication date & time', input_html: { value: (l(@link.published_at || Time.zone.now, format: :post_edit)), class: 'datepicker', 'data-datetime-picker' => true }
+
+  = form_buttons f, cancel_path: admin_links_path

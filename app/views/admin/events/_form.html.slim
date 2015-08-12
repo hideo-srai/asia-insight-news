@@ -1,0 +1,14 @@
+= simple_form_for [:admin, @event], html: { class: 'form form-horizontal' }, wrapper: :horizontal_form do |f|
+  .form-body
+    = f.input :title
+    = f.input :data_for
+    = f.association :country
+    = f.input :in_ticker, as: :boolean
+
+    hr
+
+    = f.input :date, as: :date
+    = f.input :time_local, as: :time
+    = f.input :time_gmt, as: :time
+
+  = form_buttons f, cancel_path: admin_events_path

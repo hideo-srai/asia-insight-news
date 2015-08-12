@@ -1,0 +1,40 @@
+= render 'header_and_breadcrumbs', breadcrumbs: {'Blog Posts' => admin_blog_posts_path }
+
+= render 'filter_form'
+- if @blog_posts.any?
+  table.table.table-striped.table-hover.table-posts
+    thead
+      tr
+        th.preview Cover
+        th.w-140 = sort_link(@q, :published_at)
+        th.w-240 Headline
+        th.actions Actions
+    tbody
+      - @blog_posts.each do |post|
+        - edit_path = edit_admin_blog_post_path(post.id)
+        tr.gradeX
+          td.preview
+            - if post.cover.path
+              = image_tag post.cover.thumb.url if post.cover.path
+            - else
+              = image_tag 'admin/post-cover-placeholder.png'
+          td
+            -if post.published_at
+              = l(post.published_at, format: :post_list)
+          td = link_to truncate(post.headline, length: 80), edit_path
+          td.actions
+            = link_to edit_path, class: 'btn default btn-xs purple'
+              i.fa.fa-edit>
+              | Edit
+
+            '
+            = link_to admin_blog_post_path(post.id), class: 'btn default btn-xs', method: :delete, data: {confirm: 'Are you sure?'} do
+              i.fa.fa-trash-o>
+              | Delete
+
+  .pagination-container.clearfix
+    = paginate_list @blog_posts
+    = paginate_per
+- else
+  .no-items
+    p There are no blog posts

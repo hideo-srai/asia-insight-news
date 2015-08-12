@@ -1,0 +1,11 @@
+.call-block
+  .headline-container
+    h2.title
+      = link_to 'Links', links_path
+  .call-content
+    - @links.each do |link|
+      = link_to link.url, class: 'editor-link', target: '_blank' do
+        .title = link.title
+        - if link.description.present?
+          .description= link.description
+        span.date = l link.published_at, format: :literal

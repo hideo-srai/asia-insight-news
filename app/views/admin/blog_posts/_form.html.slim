@@ -1,0 +1,20 @@
+= simple_form_for [:admin, @blog_post], html: { class: 'form form-horizontal' }, wrapper: :horizontal_form do |f|
+  .form-body
+    = f.input :published_at, as: :string, label: 'Publication date & time', input_html: { value: (l(@blog_post.published_at || Time.zone.now, format: :post_edit)), class: 'datepicker', 'data-datetime-picker' => true }
+
+    h2.form-section Content
+    = f.input :headline
+    = f.input :readout
+    = f.input :content, as: :ckeditor, input_html: {rows: 32}
+
+    h2.form-section Cover
+    = f.input :cover, as: :image, input_html: {version: :thumb}
+    - unless @blog_post.cover.blank?
+      = f.input :remove_cover, as: :boolean
+
+
+
+  .form-actions.fluid
+    .col-md-offset-2.col-md-10
+      = f.button :submit, 'Save', class: 'green'
+      = link_to 'Cancel', admin_blog_posts_path, class: 'btn btn-lg default'

@@ -1,0 +1,5 @@
+= render 'header_and_breadcrumbs',
+  breadcrumbs: { 'Event' => admin_posts_path,
+                 "Editing <small>'#{@country.name}'</small>" => edit_admin_country_path(@country) }
+h1.page-title= "Editing  ' #{@country.name} '"
+= render 'form'

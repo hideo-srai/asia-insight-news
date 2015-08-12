@@ -1,0 +1,16 @@
+.events.sidebar-block
+  .headline-container
+    h2.title
+      - if !@user
+        = link_to 'DAILY FOCUS', blog_posts_path
+      - else
+        | DAILY FOCUS
+  - @posts.each do |post|
+    .event-block
+      .title
+        = post.headline
+        span.blog-date = l(post.published_at, format: :short)
+      .description= post.readout
+      br
+      - if !@user
+        = link_to 'READ MORE', blog_post_path(post)

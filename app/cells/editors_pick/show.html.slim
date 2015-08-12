@@ -1,0 +1,7 @@
+.editors-block
+  .headline-container
+    h2 EDITORS PICK
+  - @posts.each do |post|
+    = link_to post_path(post.id), class: 'editor-link' do
+      = post.headline
+      span.author= l post.published_at, format: :short

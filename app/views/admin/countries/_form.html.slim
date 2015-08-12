@@ -1,0 +1,5 @@
+= simple_form_for [:admin, @country], html: { class: 'form form-horizontal' }, wrapper: :horizontal_form do |f|
+  .form-body
+    = f.input :name
+
+  = form_buttons f, cancel_path: admin_countries_path

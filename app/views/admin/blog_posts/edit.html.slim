@@ -1,0 +1,5 @@
+= render 'header_and_breadcrumbs',
+  breadcrumbs: { 'Blog Posts' => admin_blog_posts_path,
+                 "Editing <small>'#{truncate(@blog_post.headline, length: 36)}'</small>" => edit_polymorphic_path([:admin, @blog_post]) }
+h1.page-title= "Editing   ' #{@blog_post.headline} '"
+= render 'form'

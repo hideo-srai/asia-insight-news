@@ -1,0 +1,25 @@
+.slider-part
+  .top-stories-slider(top-stories-slider)
+    ul.slides
+      - @top_posts.each do |post|
+        - if post
+          li
+            .img-container
+              - if post.cover.path
+                = image_tag post.cover.url(:main)
+              .overlay
+            = link_to post_path(post.id), class: 'slide-link' do
+              .link-content
+                span.tag
+                  | Top Stories
+                span.title = post.headline
+                i.icon.icon-arrow-right
+
+  - if @breaking_news_post.present?
+    .breaking-news
+      .title
+        | Breaking news
+      - headline = @breaking_news_post.headline || ''
+      = link_to headline, post_path(@breaking_news_post.id), class: "news #{'long' if headline.length > 60}"
+      /a.close-link href="#"
+        i.icon.icon-close

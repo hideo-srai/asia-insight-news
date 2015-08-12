@@ -1,0 +1,7 @@
+$('.posts').append('<%= escape_javascript(render partial: 'blog_post', collection: @blog_posts)%>');
+
+
+$('a.load-more-posts').attr('href', '<%= @next_page_path %>');
+<% unless @blog_posts.next_page %>
+$('.load-more-posts-container').remove();
+<% end %>

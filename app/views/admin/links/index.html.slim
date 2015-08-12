@@ -1,0 +1,28 @@
+= render 'header_and_breadcrumbs', breadcrumbs: {'Links' => admin_links_path }
+- if @links.any?
+  table.table.table-striped.table-hover.table-links
+    thead
+      tr
+        th.w-140 Published at
+        th Name
+        th External link
+        th Description
+        th.actions Actions
+    tbody
+      - @links.each do |link|
+        - edit_path = edit_admin_link_path(link)
+        tr.gradeX
+          td = l(link.published_at, format: :post_list)
+          td = link_to link.title, edit_path
+          td = link_to truncate(link.url, length: 100), link.url, target: '_blank'
+          td = truncate(link.description, length: 120)
+
+          td.actions
+            = link_to edit_path, class: 'btn default btn-xs purple'
+              i.fa.fa-edit>
+              | Edit
+
+            '
+            = link_to admin_link_path(link), class: 'btn default btn-xs', method: :delete, data: {confirm: 'Are you sure?'} do
+              i.fa.fa-trash-o>
+              | Delete

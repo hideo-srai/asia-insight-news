@@ -1,0 +1,11 @@
+.call-block.chart-container
+  .headline-container
+    h2.title
+      = link_to 'Chart of the day', central_banks_path
+
+  .call-content
+    - if @chart.image.url
+      = image_tag @chart.image.url(:main), class: 'image'
+
+    .chart-description
+      == @chart.description

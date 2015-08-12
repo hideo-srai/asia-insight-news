@@ -1,0 +1,6 @@
+= render 'header_and_breadcrumbs',
+  breadcrumbs: { 'Central banks' => admin_central_banks_path,
+                 'Creating new central bank' => new_admin_central_bank_path }
+
+h1.page-title New central bank
+= render 'form'

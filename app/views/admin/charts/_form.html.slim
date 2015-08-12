@@ -1,0 +1,9 @@
+= simple_form_for [:admin, @chart], html: { class: 'form form-horizontal' },
+                  wrapper: :horizontal_form do |f|
+
+  .form-body
+    = f.input :image, as: :image, input_html: { version: :main }
+    = f.input :description, as: :ckeditor, input_html: {rows: 10 }
+
+
+  = form_buttons f, cancel_path: admin_dashboard_path

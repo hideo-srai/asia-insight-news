@@ -1,0 +1,7 @@
+.filter-form.row
+  = search_form_for @q, url: admin_posts_path do |f|
+    .col-md-10
+      = f.search_field :headline_or_byline_or_content_or_tags_name_or_countries_name_cont, class: 'form-control input-lg', placeholder: 'Search by headline, readout, content, tag, country'
+
+    .col-md-2
+      = f.submit 'Search', class: 'btn btn-lg btn-success submit-button'

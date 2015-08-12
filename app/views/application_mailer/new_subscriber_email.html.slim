@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    meta content="texthtml; charset=UTF-8" http-equiv="Content-Type"
+    style dt { font-weight: bold }
+  head
+  body
+    h1 New subscriber details
+  body
+    dl
+      dt First name
+      dd = @subscriber.first_name
+      dt Last name
+      dd = @subscriber.last_name
+
+      dt Title
+      dd = @subscriber.title
+      dt Company Name
+      dd = @subscriber.company
+      dt Telephone number
+      dd = @subscriber.phone_number
+      dt E-mail
+      dd = @subscriber.email

@@ -1,0 +1,15 @@
+- content_for(:title) { @author.name }
+.authors-page
+  h1.header Author
+  table.content
+    tr
+      - if @author.photo.path
+        td.image
+          = image_tag @author.photo.url(:main)
+
+      td.descr
+        h2= @author.name
+        .bio  = @author.bio
+
+
+  = render partial: 'posts/post', collection: @posts

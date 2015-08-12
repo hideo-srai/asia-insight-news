@@ -1,0 +1,30 @@
+- content_for(:title) { 'Asia-Pacific Central Bank Monitor' }
+h1 Asia-Pacific Central Bank Monitor
+
+table.central-banks
+  thead
+    th Central bank
+    th Policy target
+    th Current settings
+    th.w-120 Last changed
+    th Change
+    th Next policy announcement
+    th Reports
+    th Change expected
+
+  tbody
+    - @central_banks.each do |bank|
+      tr
+        td= link_to bank.bank_name, bank.bank_link, target: '_blank'
+        td= bank.policy_target
+        td.text-center= bank.current_settings
+        td.text-center= l(bank.changed_at, format: :central_bank) if bank.changed_at
+        td.text-center= bank.change
+        td.text-center= bank.next_policy_announcement
+        td.reports
+          - if bank.report_name.present?
+            = link_to bank.report_name, bank.report_link, target: '_blank'
+
+        td.text-center= bank.change_expected
+
+= widget :top_stories, :main

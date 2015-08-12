@@ -1,0 +1,6 @@
+= render 'header_and_breadcrumbs',
+  breadcrumbs: { 'Countries' => admin_countries_path,
+                 'Creating new country' => new_admin_country_path }
+
+h1.page-title New country
+= render 'form'

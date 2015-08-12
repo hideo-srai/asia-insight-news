@@ -1,0 +1,21 @@
+= simple_form_for [:admin, @central_bank], html: { class: 'form form-horizontal' }, wrapper: :horizontal_form do |f|
+  .form-body
+    = f.input :in_ticker, as: :boolean
+
+    = f.input :bank_name
+    = f.input :bank_link
+    hr
+    = f.input :policy_target
+    = f.input :current_settings
+    = f.input :change
+    = f.input :next_policy_announcement
+
+    hr
+    = f.input :report_name
+    = f.input :report_link
+    hr
+
+    = f.input :changed_at
+    = f.input :change_expected
+
+  = form_buttons f, cancel_path: admin_central_banks_path

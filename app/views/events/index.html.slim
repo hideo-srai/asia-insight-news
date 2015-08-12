@@ -1,0 +1,20 @@
+- content_for(:title) { 'Coming Up' }
+h1 Coming Up
+
+table.events-list
+  thead
+    th Date
+    th Local
+    th GMT
+    th Country
+    th Data for
+    th Event
+
+  - @events.each do |event|
+    tr
+      td = l event.date, format: :short
+      td = l event.time_local, format: :just_time
+      td = l event.time_gmt, format: :just_time
+      td = event.country.name
+      td = event.data_for
+      td = event.title

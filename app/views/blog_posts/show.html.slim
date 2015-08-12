@@ -1,0 +1,32 @@
+article.news-article
+  header
+    h1 = @blog_post.headline
+    ul.data-list
+      li
+        i.icon.icon-time>
+        = l @blog_post.published_at, format: :long
+  .article-body
+    h2= @blog_post.readout
+    .image-container
+      = image_tag @blog_post.cover.url(:main)
+    == @blog_post.content
+  footer
+    = widget :social_share, :post, url: blog_post_url(id: @blog_post.id), title: @blog_post.headline, image: (@blog_post.cover.url(:main) if @blog_post.cover.path)
+    = link_to '', '#', class: 'print-post', 'onClick' => 'print()'
+    = link_to 'Back', :back, class: 'btn btn-transparent'
+  .comments
+    h1 Comments
+    #disqus_thread
+    javascript:
+      type = "text/javascript"
+      /* * * CONFIGURATION VARIABLES * * */
+      var disqus_shortname = 'mniasiainsight';
+
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function () {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();

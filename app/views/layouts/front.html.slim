@@ -1,0 +1,33 @@
+doctype html
+html ng-app="FrontApp"
+  head
+    = render 'frontend/meta_tags'
+    = stylesheet_link_tag    'frontend', media: 'screen'
+    = stylesheet_link_tag    'frontend-print', media: 'print'
+    = javascript_include_tag 'frontend'
+    = csrf_meta_tags
+    = include_gon
+
+  body
+    = render 'frontend/header'
+
+    main
+      a.show-link.js-show-link href="#"
+        span
+          | TAP
+      .container
+        .left-block.fix-height.js-fix-height
+          = render 'frontend/sidebar'
+        .middle-block.clear
+          = yield
+
+        .right-block
+          = widget :chart_of_the_day, :sidebar
+          = widget :events, :sidebar
+          = widget :central_banks, :sidebar
+          /= widget :sections, :sidebar
+
+    = render 'frontend/footer'
+
+    = render 'frontend/helpers'
+    = render 'frontend/stats'

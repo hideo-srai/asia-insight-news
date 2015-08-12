@@ -1,0 +1,5 @@
+= render 'header_and_breadcrumbs',
+  breadcrumbs: { 'Central banks' => admin_central_banks_path,
+                 "Editing <small>'#{@central_bank.bank_name}'</small>" => edit_admin_central_bank_path(@central_bank) }
+h1.page-title= "Editing  ' #{@central_bank.bank_name} '"
+= render 'form'

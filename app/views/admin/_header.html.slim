@@ -1,0 +1,19 @@
+.header.navbar.navbar-fixed-top
+  .header-inner
+    = link_to admin_path, class: 'navbar-brand' do
+      = image_tag 'logo-asia-insight.svg', class: 'img-responsive'
+
+    = link_to 'Control panel', admin_path, class: 'navbar-cp-title'
+
+    ul.nav.navbar-nav.pull-right
+      li.dropdown.user
+        = link_to destroy_admin_user_session_path do
+          i.fa.fa-external-link>
+          span.username Log out
+
+    .user-online.pull-right
+      ' Editors online:
+      strong= @signed_is_users_count
+
+
+.clear

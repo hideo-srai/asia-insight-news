@@ -1,0 +1,39 @@
+header#header
+  .header-bottom
+    .container
+      .left-block
+        = widget :menu, :sidebar
+
+        = link_to 'Asia Insight', root_path, class: 'logo-block'
+      .middle-block
+        = form_for @search_filter, method: :get, as: :search_filter, url: search_path, html: { class: 'search-form' } do |f|
+          = f.text_field :search_query, class: 'search', placeholder: 'Search'
+          = f.submit '', class: 'search-button'
+
+      .right-block
+        = link_to 'http://www.mds.deutsche-boerse.com/mds-en', target: '_blank' do
+          = image_tag 'logo-mni-small.png'
+
+  .header-last
+
+    .nav-block.mobile-hide 
+      = link_to 'Contact', page_path(slug: 'contact')
+      = link_to 'About Us', page_path(slug: 'about-us')
+
+      a.subscribe(href="#" data-open-register-modal)
+        | Sign Up
+
+    .ticker.mobile-hide
+      ul.links-container
+        - @ticker_items.each do |item|
+          li
+            = link_to item[:title], item[:url], target: '_blank'
+
+      /- if user_signed_in?
+        = link_to destroy_user_session_path, class: 'login' do
+          i.icon.icon-lock-empty
+          | Logout
+      /- else
+        = link_to new_user_session_path, class: 'login'  do
+          i.icon.icon-lock-empty
+          | Login

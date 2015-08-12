@@ -1,0 +1,16 @@
+en:
+  time:
+    formats:
+      front: "%^a %e %b %Y"
+      long: "%H:%M | %B %e, %Y"
+      short: "%b %d.%Y"
+      literal: "%A, %B %e, %Y"
+      post_list: "%H:%M, %e-%m-%Y"
+      post_edit: "%Y-%m-%d %H:%M"
+      sitemap: '%Y-%m-%d'
+
+      just_time: "%H:%M"
+  date:
+    formats:
+      short: "%b %d.%Y"
+      central_bank: "%d-%b-%Y"
