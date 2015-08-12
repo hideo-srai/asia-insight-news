@@ -4,6 +4,8 @@ article.news-article(data-post-id="#{post.slug}" data-path="#{post_path(post)}")
       = image_tag("man.png", height: '92', width: '144')
     .article-title = link_to post_path(post.id) do
       h1 = post.headline
+      = link_to post_path(post.id), class: 'read-more-icon', 'data-read-more' => true do
+        = image_tag "expand-icon.jpeg"
 
   .article-body
     div.text(data-text)
@@ -17,8 +19,5 @@ article.news-article(data-post-id="#{post.slug}" data-path="#{post_path(post)}")
                 td.descr= post.cover_description
                 td.credits= post.cover_credits
       == post.content
-  footer
-    = link_to post_path(post.id), class: 'read-more-icon', 'data-read-more' => true do
-      = image_tag "expand-icon.jpeg"
-    = link_to "posts", class: 'read-more-icon', 'data-read-less' => true do
-      = image_tag "collapse-icon.jpeg"
+      = link_to "posts", class: 'read-more-icon', 'data-read-less' => true do
+        = image_tag "collapse-icon.jpeg"

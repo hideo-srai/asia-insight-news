@@ -149,11 +149,11 @@ h4
 
   max-width: 1566px
   padding-right: 350px
-  padding-left: 400px
+  padding-left: 350px
   position: relative
 
   .left-block
-    width: 400px
+    width: 350px
     position: absolute
     left: 0
     top: 0
@@ -560,7 +560,7 @@ main
     z-index: 10
 
     .scroll-block
-      width: 400px
+      width: 350px
       @media (max-width: 320px)
         width: 320px
 
@@ -896,11 +896,16 @@ main
         text-align: left
 
 article
-  padding-top: 10px
+  //padding-top: 10px
 
   header
-    padding-bottom: 20px
+    padding-bottom: 10px
     position: relative
+
+    &:after
+      content: ""
+      display: table
+      clear: both
 
     .article-img
       width: 144px
@@ -913,6 +918,7 @@ article
     h1
       +font-size(22)
       +line-height(34)
+      margin-top: 15px
 
     //&:after
       width: 266px
@@ -943,7 +949,12 @@ article
       &:last-child:after
         display: none
 
+  .opened-article
+    padding-bottom: 20px
+
   .article-body
+    position: relative
+    border-bottom: 1px solid #e6e5e5
     color: #000
     +font-size(14)
     line-height: 22px
@@ -988,7 +999,7 @@ article
   footer
     +clear_after
 
-    border-bottom: 1px solid #e6e5e5
+
     padding: 10px 0
 
     .print-post
@@ -1050,12 +1061,15 @@ article
         margin-top: 20px
         clear: both
 
-    .read-more-icon
-      float: right
-
     @media (max-width: 768px)
       .print-post
         display: none
+
+  .read-more-icon
+    position: absolute
+    bottom: 0
+    right: 0
+
 
 
 

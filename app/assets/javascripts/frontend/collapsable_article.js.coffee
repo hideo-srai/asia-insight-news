@@ -24,6 +24,7 @@ class window.CollapsableArticle
       @contentArea.css({ height: 'auto' })
       @readMoreButton.hide()
       @readLessButton.show()
+      $(".text").addClass( "opened-article" );
 
       if @path
         window.history.pushState('', '', @path)
