@@ -5,6 +5,16 @@ Post.destroy_all
 CentralBank.destroy_all
 Link.destroy_all
 Event.destroy_all
+BlogPost.destroy_all
+
+3.times do
+  BlogPost.create(
+      headline: fake_words(12).capitalize,
+      readout: fake_sentences(2),
+      content: fake_sentences(8),
+      published_at: rand(20).days.ago
+  )
+end
 
 authors = 12.times.map do
   Author.create(name: Faker::Name.name, bio: fake_sentences(12))

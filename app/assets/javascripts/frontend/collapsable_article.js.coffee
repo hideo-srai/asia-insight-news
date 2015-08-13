@@ -20,10 +20,12 @@ class window.CollapsableArticle
 
   bindExpand: ->
     @readMoreButton.on 'click', (e) =>
+      $(e.target).closest(".article-body").find(".text").addClass("opened-article")
       e.preventDefault()
       @contentArea.css({ height: 'auto' })
       @readMoreButton.hide()
       @readLessButton.show()
+
 
       if @path
         window.history.pushState('', '', @path)
@@ -32,11 +34,11 @@ class window.CollapsableArticle
 
   bindCollapse: ->
     @readLessButton.on 'click', (e) =>
+      $(e.target).closest(".article-body").find(".text").removeClass("opened-article")
       e.preventDefault()
       @contentArea.css({ height: '0' })
       @readLessButton.hide()
       @readMoreButton.show()
-      $(".text").removeClass('opened-article')
 
   markRead: ->
     $.post("/posts/#{@id}/mark-read")

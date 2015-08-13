@@ -1,12 +1,7 @@
-.events.sidebar-block
+.call-block.chart-container
   .headline-container
-    h2 COMING UP
-
-  - @events.each do |event|
-    .event-block
-      .country = event.country.name
-      .date = l event.date, format: :short
-      .title = event.title
-
-  .read-more-container
-    = link_to 'Read More', events_path, class: 'btn btn-transparent'
+    h2 CHART OF THE DAY
+  .call-content
+    = image_tag 'right-chart.jpg', :class => "image"
+    .chart-description
+      p Test descrtiptoin of the chart

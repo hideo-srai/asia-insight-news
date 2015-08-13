@@ -545,7 +545,7 @@ main
     -webkit-overflow-scrolling: touch
 
   .middle-block
-    padding: 30px 30px 30px
+    padding: 0 30px 30px
 
     @media (max-width: 320px)
       padding: 30px 15px 0
@@ -1065,10 +1065,12 @@ article
       .print-post
         display: none
 
-  .read-more-icon
+  .read-more-link
+    +font-size(14)
     position: absolute
     bottom: 0
     right: 0
+    float: right
 
 
 
@@ -2063,6 +2065,7 @@ article
     font-weight: bold
     font-size: 14px
     vertical-align: bottom
+    text-align: left
 
   .text-center
     text-align: center
