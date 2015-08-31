@@ -23,12 +23,6 @@ header#header
       a.subscribe(href="#" data-open-register-modal)
         | Sign Up
 
-    .ticker.mobile-hide
-      ul.links-container
-        - @ticker_items.each do |item|
-          li
-            = link_to item[:title], item[:url], target: '_blank'
-
       /- if user_signed_in?
         = link_to destroy_user_session_path, class: 'login' do
           i.icon.icon-lock-empty
