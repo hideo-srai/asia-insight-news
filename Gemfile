@@ -4,6 +4,8 @@ gem 'rails', '~> 4.1.0'
 gem 'sass-rails', '~> 4.0.5'
 gem 'pg'
 
+gem 'rails_12factor', group: :production
+
 gem 'devise'
 gem 'devise_cas_authenticatable'
 gem 'devise_ldap_authenticatable'

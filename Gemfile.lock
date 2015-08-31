@@ -197,6 +197,11 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.1.8)
       sprockets-rails (~> 2.0)
+    rails_12factor (0.0.3)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.4)
+    rails_stdout_logging (0.0.4)
     railties (4.1.8)
       actionpack (= 4.1.8)
       activesupport (= 4.1.8)
@@ -317,6 +322,7 @@ DEPENDENCIES
   quiet_assets
   rabl
   rails (~> 4.1.0)
+  rails_12factor
   ranked-model
   ransack
   sass-rails (~> 4.0.5)
@@ -330,3 +336,6 @@ DEPENDENCIES
   uglifier
   unicorn
   will_paginate-bootstrap
+
+BUNDLED WITH
+   1.10.6
