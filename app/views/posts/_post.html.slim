@@ -1,7 +1,10 @@
 article.news-article(data-post-id="#{post.slug}" data-path="#{post_path(post)}")
   header
     .article-img
-      = image_tag("man.png", height: '92', width: '144')
+      - if post.countries.any?
+        = image_tag(post.countries.first.flag_url, height: '92', width: '144')
+      - else
+        = image_tag("man.png", height: '92', width: '144')
     .article-title = link_to post_path(post.id) do
       h1 = post.headline
 
