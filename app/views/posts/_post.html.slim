@@ -1,11 +1,11 @@
-article.news-article(data-post-id="#{post.slug}" data-path="#{post_path(post)}")
+article.news-article(data-post-id="#{post.slug}" data-path="#{post_path(post)}" data-inited="false")
   header
     .article-img
       - if post.cover.path
         = image_tag(post.cover.url(:main), height: '92', width: '144')
       - else
         = image_tag(post.countries.first.flag_url, height: '92', width: '144')
-    .article-title = link_to post_path(post.id) do
+    .article-title = link_to post_path(post.id), 'data-expand-article' => 'hidden' do
       h1 = post.headline
 
   .article-body

@@ -43,7 +43,7 @@ $(document).ready(function(){
   });
 
 
-  $('article').each(function() {
+  $('article[data-inited="false"]').each(function() {
     new CollapsableArticle($(this))
   });
 

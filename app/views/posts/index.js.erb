@@ -1,5 +1,5 @@
 $('.posts').append('<%= escape_javascript(render partial: 'post', collection: @posts)%>');
-$('article').each(function() {
+$('article[data-inited="false"]').each(function() {
     new CollapsableArticle($(this))
 });
 

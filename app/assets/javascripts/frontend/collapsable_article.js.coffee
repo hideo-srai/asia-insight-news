@@ -1,5 +1,6 @@
 class window.CollapsableArticle
   constructor: (@articleEl) ->
+    @articleEl.attr('data-inited', 'true')
     @id= @articleEl.data('post-id')
     @path = @articleEl.data('path')
     @contentArea = $(@articleEl.find('[data-text]'))
@@ -7,10 +8,12 @@ class window.CollapsableArticle
     @readMoreButton.show()
     @readLessButton = $(@articleEl.find('[data-read-less]'))
     @readLessButton.hide()
+    @expandArticle = $(@articleEl.find('[data-expand-article]'))
 
     @initializeContent()
     @bindExpand()
     @bindCollapse()
+    @bindTitle()
 
 
 
@@ -40,6 +43,15 @@ class window.CollapsableArticle
       @readLessButton.hide()
       @readMoreButton.show()
 
+  bindTitle: ->
+    @expandArticle.on 'click', (e) =>
+      e.preventDefault()
+      if @expandArticle.attr('data-expand-article') == 'hidden'
+        @expandArticle.attr('data-expand-article', 'expanded')
+        @readMoreButton.trigger('click')
+      else
+        @expandArticle.attr('data-expand-article', 'hidden')
+        @readLessButton.trigger('click')
+
   markRead: ->
     $.post("/posts/#{@id}/mark-read")
-
