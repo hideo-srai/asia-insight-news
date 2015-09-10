@@ -1,6 +1,8 @@
 article.news-article(data-post-id="#{post.slug}" data-path="#{post_path(post)}" data-inited="false")
   header
-    div.datetime 07:29 | August 26, 2015
+    div.datetime
+      i.icon.icon-time>
+      = l post.published_at, format: :long
     .article-img
       - if post.cover.path
         = image_tag(post.cover.url(:main), height: '92', width: '144')
