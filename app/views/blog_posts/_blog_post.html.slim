@@ -1,18 +1,24 @@
 article.news-article
   header
-    = link_to blog_post_path(blog_post) do
-      h1
-        = blog_post.headline
-    ul.data-list
-      li
-        i.icon.icon-time>
-        = l blog_post.published_at, format: :long
+    div.datetime
+      i.icon.icon-time>
+      = l blog_post.published_at, format: :long
+    .article-img
+      - if blog_post.cover.path
+        = image_tag(blog_post.cover.url(:main), height: '92', width: '144')
+    .article-title = link_to blog_post_path(blog_post.id), 'data-expand-article' => 'hidden' do
+      h1 = blog_post.headline
+
   .article-body
-    h2= blog_post.readout
-    .image-container
-      = image_tag blog_post.cover.url(:main)
-    == blog_post.readout
-  footer
-    = widget :social_share, :post, url: blog_post_url(id: blog_post.id), title: blog_post.headline, image: (blog_post.cover.url(:main) if blog_post.cover.path)
-    = link_to '', '#', class: 'print-post', 'onClick' => 'print()'
-    = link_to 'Read More', blog_post_path(blog_post), class: 'btn btn-transparent'
+    div.text(data-text)
+      - if blog_post.cover.path
+        = link_to blog_post(blog_post.id) do
+          .image-container
+            = image_tag blog_post.cover.url(:main)
+            table.title
+              tr
+                td.descr= blog_post.cover_description
+                td.credits= blog_post.cover_credits
+        == blog_post.content
+    = link_to "Read More", blog_post_path(blog_post.id), class: 'read-more-link', 'data-read-more' => true
+    = link_to "Read Less", "", class: 'read-more-link', 'data-read-less' => true
