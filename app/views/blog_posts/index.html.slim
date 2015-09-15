@@ -2,7 +2,7 @@
   h1.header Blog
   - if @blog_posts.any?
     .posts
-      = render partial: 'blog_post', collection: @blog_posts
+      = render @blog_posts
     - if @blog_posts.next_page
       .load-more-posts-container
         = render 'frontend/posts_loader'
