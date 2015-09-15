@@ -23,5 +23,5 @@ article.news-article(data-post-id="#{post.slug}" data-path="#{post_path(post)}" 
                 td.descr= post.cover_description
                 td.credits= post.cover_credits
       == post.content
-    = link_to "READ MORE", post_path(post.id), class: 'read-more-link', 'data-read-more' => true
-    = link_to "READ LESS", "", class: 'read-more-link', 'data-read-less' => true
+    = link_to "Read More", post_path(post.id), class: 'read-more-link', 'data-read-more' => true
+    = link_to "Read Less", "", class: 'read-more-link', 'data-read-less' => true

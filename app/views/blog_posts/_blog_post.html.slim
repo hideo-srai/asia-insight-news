@@ -1,4 +1,4 @@
-article.news-article(data-blog_post-id="#{blog_post.slug}" data-path="#{blog_post_path(blog_post)}" data-inited="false")
+article.news-article
   header
     div.datetime
       i.icon.icon-time>
@@ -12,9 +12,13 @@ article.news-article(data-blog_post-id="#{blog_post.slug}" data-path="#{blog_pos
   .article-body
     div.text(data-text)
       - if blog_post.cover.path
-        = link_to blog_post_path(blog_post.id) do
+        = link_to blog_post(blog_post.id) do
           .image-container
             = image_tag blog_post.cover.url(:main)
-      == blog_post.content
-    = link_to "READ MORE", blog_post_path(blog_post.id), class: 'read-more-link', 'data-read-more' => true
-    = link_to "READ LESS", "", class: 'read-more-link', 'data-read-less' => true
+            table.title
+              tr
+                td.descr= blog_post.cover_description
+                td.credits= blog_post.cover_credits
+        == blog_post.content
+    = link_to "Read More", blog_post_path(blog_post.id), class: 'read-more-link', 'data-read-more' => true
+    = link_to "Read Less", "", class: 'read-more-link', 'data-read-less' => true
