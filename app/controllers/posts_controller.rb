@@ -9,6 +9,7 @@ class PostsController < FrontController
     respond_to do |format|
       format.html { render '_index' }
       format.js
+      format.rss
     end
   end
 

@@ -7,6 +7,7 @@ class BlogPostsController < FrontController
     respond_to do |format|
       format.html
       format.js
+      format.rss
     end
   end
   def show
