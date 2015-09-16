@@ -43,4 +43,4 @@ article.news-article
   footer
     = widget :social_share, :post, url: post_url(id: @post.id), title: @post.headline, image: (@post.cover.url(:main) if @post.cover.path)
     = link_to '', '#', class: 'print-post', 'onClick' => 'print()'
-    = link_to 'Back', :back, class: 'btn btn-transparent'
+    = link_to 'Back', posts_path, class: 'btn btn-transparent'

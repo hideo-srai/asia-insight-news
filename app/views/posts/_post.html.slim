@@ -25,6 +25,6 @@ article.news-article(data-post-id="#{post.slug}" data-path="#{post_path(post)}" 
       == post.content
       footer
         = widget :social_share, :post, url: post_url(id: post.id), title: post.headline, image: (post.cover.url(:main) if post.cover.path)
-        = link_to '', post_path(post, print: true), class: 'print-post'
+        = link_to '', post_path(post, print: true), class: 'print-post', target: '_blank'
     = link_to "Read More", post_path(post.id), class: 'read-more-link', 'data-read-more' => true
     = link_to "Read Less", "", class: 'read-more-link', 'data-read-less' => true
