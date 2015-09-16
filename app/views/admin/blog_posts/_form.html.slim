@@ -12,7 +12,7 @@
     - unless @blog_post.cover.blank?
       = f.input :remove_cover, as: :boolean
 
-
+    = f.association :countries, input_html: { class: 'select2me' }, required: true
 
   .form-actions.fluid
     .col-md-offset-2.col-md-10

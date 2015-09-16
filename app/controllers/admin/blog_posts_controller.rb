@@ -50,6 +50,6 @@ class Admin::BlogPostsController < AdminController
 
   def blog_post_params
     params.require(:blog_post).permit(:cover, :remove_cover, :cover_remove, :headline, :content, :readout,
-                                     :published_at)
+                                     :published_at, country_ids: [])
   end
 end

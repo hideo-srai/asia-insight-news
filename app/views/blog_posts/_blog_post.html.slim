@@ -6,6 +6,8 @@ article.news-article
     .article-img
       - if blog_post.cover.path
         = image_tag(blog_post.cover.url(:main), height: '92', width: '144')
+      - else
+        = image_tag(blog_post.countries.first.flag_url, height: '92', width: '144')
     .article-title= link_to blog_post_path(blog_post.id) do
       h1 = blog_post.headline
   .article-body
