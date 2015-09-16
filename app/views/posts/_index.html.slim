@@ -3,7 +3,7 @@
 
 - if @posts.any?
   .posts
-    = render partial: 'post', collection: @posts
+    = render @posts
 
   - if @posts.next_page
     .load-more-posts-container
