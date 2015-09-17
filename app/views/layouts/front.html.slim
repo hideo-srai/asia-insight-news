@@ -7,6 +7,8 @@ html ng-app="FrontApp"
     = javascript_include_tag 'frontend'
     = csrf_meta_tags
     = include_gon
+    = auto_discovery_link_tag(:rss, posts_url(format: :rss))
+
 
   body
     = render 'frontend/header'
