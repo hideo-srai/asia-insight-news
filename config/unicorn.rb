@@ -1,24 +1,23 @@
 require 'pathname'
 
-APP_PATH = Pathname.new(File.expand_path('../../../',__FILE__)).to_s
-CURRENT_PATH = "#{APP_PATH}/current"
+APP_PATH = Pathname.new(File.expand_path('../../', __FILE__))
 
-working_directory CURRENT_PATH
-pid "#{CURRENT_PATH}/tmp/pids/unicorn.pid"
+working_directory APP_PATH
+pid "#{APP_PATH}/tmp/pids/unicorn.pid"
 listen "#{APP_PATH}/shared/tmp/sockets/unicorn.sock", backlog: 64
 
 worker_processes 4
 timeout 180
 preload_app true
 
-stderr_path "#{CURRENT_PATH}/log/unicorn.stderr.log"
-stdout_path "#{CURRENT_PATH}/log/unicorn.stdout.log"
+stderr_path "#{APP_PATH}/log/unicorn.stderr.log"
+stdout_path "#{APP_PATH}/log/unicorn.stdout.log"
 
 user 'demo', 'demo'
 
 # use correct Gemfile on restarts
 before_exec do |server|
-  ENV['BUNDLE_GEMFILE'] = "#{CURRENT_PATH}/Gemfile"
+  ENV['BUNDLE_GEMFILE'] = "#{APP_PATH}/Gemfile"
 end
 
 before_fork do |server, worker|
