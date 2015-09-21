@@ -49,11 +49,6 @@ gem 'faker', '~> 1.4.3'
 gem 'impressionist'
 gem 'seed_migration'
 
-group :production do
-  gem 'rails_12factor'
-  gem 'unicorn'
-end
-
 group :development do
   gem 'better_errors'
   gem 'spring'

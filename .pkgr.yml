@@ -1,1 +1,3 @@
 after_install: packaging/hooks/postinstall.sh
+build_dependencies:
+  - httpd
