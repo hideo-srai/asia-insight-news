@@ -144,6 +144,9 @@ GEM
       mini_portile (~> 0.6.0)
     ntlm-http (0.1.1)
     orm_adapter (0.5.0)
+    passenger (5.0.19)
+      rack
+      rake (>= 0.8.1)
     pdf-core (0.4.0)
     pg (0.17.1)
     polyamorous (1.1.0)
@@ -277,6 +280,7 @@ DEPENDENCIES
   mechanize
   mini_magick
   ng-rails-csrf
+  passenger
   pg
   prawn
   prawn-svg
