@@ -58,6 +58,8 @@ group :development do
   gem 'binding_of_caller'
 end
 
+gem 'puma'
+
 group :production do
   gem 'rails_12factor'
   gem 'passenger'
