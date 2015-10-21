@@ -8,7 +8,7 @@
   - @posts[0..1].each do |post|
     .event-block
       .title
-        = post.headline
+        strong= post.headline
         span.blog-date = l(post.published_at, format: :short)
       .description= post.readout
       = truncate(strip_tags(post.content), length: 160, separator: '. ')
