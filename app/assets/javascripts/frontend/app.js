@@ -159,7 +159,7 @@ $(window).resize(function(){
   var wHeight = $(window).height();
 
 
-  if(wWidth <= 1100){
+  if(wWidth <= 1330){
     var fixHeight = wHeight - 80;
 
     $('body').addClass('small-screen');
