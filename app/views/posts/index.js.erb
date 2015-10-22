@@ -1,8 +1,4 @@
 $('.posts').append('<%= escape_javascript(render partial: 'post', collection: @posts)%>');
-$('article[data-inited="false"]').each(function() {
-    new CollapsableArticle($(this))
-});
-
 
 $('a.load-more-posts').attr('href', '<%= @next_page_path %>');
 <% unless @posts.next_page %>

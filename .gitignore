@@ -19,6 +19,9 @@ ldap.yml
 /log/*.log
 /tmp
 
+.vagrant
+Vagrantfile
+*.rpm
 
 /public/system/uploads
 public/uploads

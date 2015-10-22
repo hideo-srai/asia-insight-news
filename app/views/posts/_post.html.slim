@@ -1,4 +1,4 @@
-article.news-article(data-post-id="#{post.slug}" data-path="#{post_path(post)}" data-inited="false")
+article.news-article
   header
     div.datetime
       i.icon.icon-time>
@@ -8,23 +8,5 @@ article.news-article(data-post-id="#{post.slug}" data-path="#{post_path(post)}" 
         = image_tag(post.cover.url(:main), height: '92', width: '144')
       - else
         = image_tag(post.countries.first.flag_url, height: '92', width: '144')
-    .article-title = link_to post_path(post.id), 'data-expand-article' => 'hidden' do
-      h1 = post.headline
-
-  .article-body
-    div.text(data-text)
-      h2= post.byline
-      - if post.cover.path
-        = link_to post_path(post.id) do
-          .image-container
-            = image_tag post.cover.url(:main)
-            table.title
-              tr
-                td.descr= post.cover_description
-                td.credits= post.cover_credits
-      == post.content
-      footer
-        = widget :social_share, :post, url: post_url(id: post.id), title: post.headline, image: (post.cover.url(:main) if post.cover.path)
-        = link_to '', post_path(post, print: true), class: 'print-post', target: '_blank'
-    = link_to "Read More", post_path(post.id), class: 'read-more-link', 'data-read-more' => true
-    = link_to "Read Less", "", class: 'read-more-link', 'data-read-less' => true
+    .article-title = link_to post_path(post.id) do
+      h1= post.headline
