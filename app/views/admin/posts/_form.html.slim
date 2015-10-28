@@ -44,10 +44,6 @@
 
     = f.input :authors_pick, as: :boolean, label: "Author's pick?"
     = f.input :in_carousel, as: :boolean, label: 'Add to carousel'
-    /= f.input :featured_level, as: :radio_buttons, collection: [['Remove from carousel', nil], ['1st slide', 1],['2nd slide', 2], ['3rd slide', 3], ['4th slide', 4], ['5th slide', 5]],
-              label: 'Carousel Position', html_options: { class: 'radio-list' }, checked: nil,
-              hint: 'Stories with set importance level will appear in the carousel'
-
     = f.input :in_digest, as: :boolean, label: 'In PDF?', hint: 'Marked posts will appear in weekly briefing PDF'
     = f.input :is_breaking_news, as: :boolean, label: 'In breaking news?'
     = f.input :in_ticker, as: :boolean, label: 'In ticker?'
