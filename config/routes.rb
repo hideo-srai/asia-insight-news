@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     resources :links
     resources :countries
     resources :pages, only: [:index, :edit, :update]
-    resource :chart, only: [:show, :update]
+    resources :charts
 
     resources :site_settings, path: 'settings', only: [:index, :update]
   end

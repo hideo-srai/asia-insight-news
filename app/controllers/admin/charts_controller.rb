@@ -1,21 +1,43 @@
 class Admin::ChartsController < AdminController
-  def show
-    @chart = Chart.first
+  before_action :set_chart, only: [:show, :edit, :update, :destroy]
+
+  def index
+    @charts = Chart.all.paginate(paginate_params)
+  end
+
+  def new
+    @chart = Chart.new
+  end
+
+  def edit
+  end
+
+  def create
+    @chart = Chart.new(chart_params)
+    if @chart.save
+      flash[:success] = 'Chart was successfully created'
+      redirect_to admin_charts_path
+    else
+      flash[:error] = 'Please check out the author creating errors'
+      render 'new'
+    end
   end
 
   def update
-    @chart = Chart.first
-
-    if @chart.update_attributes(chart_params)
+    if @chart.update(chart_params)
       flash[:success] = 'Chart was successfully updated'
-      redirect_to admin_chart_path
+      redirect_to admin_charts_path
     else
       flash[:error] = 'Please check out the author updating errors'
-      render 'show'
+      render 'edit'
     end
   end
 
   protected
+
+  def set_chart
+    @chart = Chart.find(params[:id])
+  end
 
   def chart_params
     params.require(:chart).permit(:image, :description)

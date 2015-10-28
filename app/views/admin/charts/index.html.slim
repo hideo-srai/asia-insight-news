@@ -1,0 +1,35 @@
+= render 'header_and_breadcrumbs', breadcrumbs: {'Charts' => admin_charts_path }
+
+- if @charts.any?
+  table.table.table-striped.table-hover.table-charts
+    thead
+      tr
+        th.preview Image
+        th.w-240 Description
+        th.actions Actions
+    tbody
+      - @charts.each do |chart|
+        - edit_path = edit_admin_chart_path(chart.id)
+        tr.gradeX
+          td.preview
+            - if chart.image.path
+              = image_tag chart.image.main.url
+            - else
+              = image_tag 'admin/post-cover-placeholder.png'
+          td = link_to truncate(chart.description, length: 80), edit_path
+          td.actions
+            = link_to edit_path, class: 'btn default btn-xs purple'
+              i.fa.fa-edit>
+              | Edit
+
+            '
+            = link_to admin_chart_path(chart.id), class: 'btn default btn-xs', method: :delete, data: {confirm: 'Are you sure?'} do
+              i.fa.fa-trash-o>
+              | Delete
+
+  .pagination-container.clearfix
+    = paginate_list @charts
+    = paginate_per
+- else
+  .no-items
+    p There are no charts

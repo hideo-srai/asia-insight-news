@@ -1,0 +1,6 @@
+= render 'header_and_breadcrumbs',
+  breadcrumbs: { 'Charts' => admin_charts_path,
+                 'Creating new chart' => new_admin_chart_path }
+
+h1.page-title New chart
+= render 'form'

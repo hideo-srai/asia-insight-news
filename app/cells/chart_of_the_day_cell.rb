@@ -1,6 +1,6 @@
 class ChartOfTheDayCell < FrontendCell
   def sidebar
-    @chart = Chart.first
+    @chart = Chart.last
 
     if @chart.present? && @chart.description.present?
       render

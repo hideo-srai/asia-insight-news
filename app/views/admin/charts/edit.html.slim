@@ -1,0 +1,6 @@
+= render 'header_and_breadcrumbs',
+  breadcrumbs: { 'Charts' => admin_charts_path,
+                 "Editing <small>'#{truncate(@chart.description, length: 36)}'</small>" => edit_polymorphic_path([:admin, @chart]) }
+
+h1.page-title= "Editing '#{@chart.description}'"
+= render 'form'
