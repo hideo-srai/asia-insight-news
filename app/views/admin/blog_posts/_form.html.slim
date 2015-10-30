@@ -1,5 +1,6 @@
 = simple_form_for [:admin, @blog_post], html: { class: 'form form-horizontal' }, wrapper: :horizontal_form do |f|
   .form-body
+    = f.input :published, as: :boolean, label: 'Published?'
     = f.input :published_at, as: :string, label: 'Publication date & time', input_html: { value: (l(@blog_post.published_at || Time.zone.now, format: :post_edit)), class: 'datepicker', 'data-datetime-picker' => true }
 
     h2.form-section Content
