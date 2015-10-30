@@ -6,7 +6,7 @@ class BlogPost < ActiveRecord::Base
 
   validate :one_country_at_least
 
-  scope :latest,              -> { order('published_at DESC') }
+  scope :latest, -> { where(published: true).order('published_at DESC') }
 
   mount_uploader :cover, PostCoverUploader
 

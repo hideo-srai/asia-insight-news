@@ -55,3 +55,5 @@
 - if session[:post_preview_id]
   = link_to 'Go back to post editing', edit_admin_post_path(id: session[:post_preview_id]), id: 'go-back-to-admin'
 
+- if session[:blog_post_preview_id]
+  = link_to 'Go back to blog post editing', edit_admin_blog_post_path(id: session[:blog_post_preview_id]), id: 'go-back-to-admin'

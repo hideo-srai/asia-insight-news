@@ -1,5 +1,6 @@
 = simple_form_for [:admin, @blog_post], html: { class: 'form form-horizontal' }, wrapper: :horizontal_form do |f|
   .form-body
+    = f.input :published, as: :boolean, label: 'Published?'
     = f.input :published_at, as: :string, label: 'Publication date & time', input_html: { value: (l(@blog_post.published_at || Time.zone.now, format: :post_edit)), class: 'datepicker', 'data-datetime-picker' => true }
 
     h2.form-section Content
@@ -17,4 +18,6 @@
   .form-actions.fluid
     .col-md-offset-2.col-md-10
       = f.button :submit, 'Save', class: 'green'
+      = f.button :submit, 'Preview', class: 'btn-primary'
+      = f.button :submit, 'Publish', class: 'purple'
       = link_to 'Cancel', admin_blog_posts_path, class: 'btn btn-lg default'

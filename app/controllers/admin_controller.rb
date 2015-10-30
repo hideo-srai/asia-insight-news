@@ -24,6 +24,7 @@ class AdminController < ApplicationController
 
   def set_preview_post_mode
     session[:post_preview_id] = nil
+    session[:blog_post_preview_id] = nil
   end
 
   def paginate_params
