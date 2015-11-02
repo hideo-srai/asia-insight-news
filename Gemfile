@@ -49,6 +49,8 @@ gem 'faker', '~> 1.4.3'
 gem 'impressionist'
 gem 'seed_migration'
 
+gem 'puma'
+
 group :development do
   gem 'better_errors'
   gem 'spring'
@@ -58,9 +60,6 @@ group :development do
   gem 'binding_of_caller'
 end
 
-gem 'puma'
-
 group :production do
   gem 'rails_12factor'
-  gem 'passenger'
 end
