@@ -11,7 +11,7 @@
         strong= post.headline
         span.blog-date = l(post.published_at, format: :short)
       .description= post.readout
-      = truncate(strip_tags(post.content), length: 160, separator: '. ')
+      = truncate(strip_tags(post.content), length: 160, separator: '. ', escape: false)
       br
       - if !@user
         = link_to 'READ MORE', blog_post_path(post)
