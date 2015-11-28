@@ -9,51 +9,62 @@
           i.fa.fa-mail-reply
           span.title To website
 
+      li.heading
+        h3.uppercase Content
       = active_link_to admin_dashboard_path, wrap_tag: :li do
         i.fa.fa-home
         span.title Dashboard
-
       = active_link_to admin_events_path, wrap_tag: :li do
         i.fa.fa-calendar
         span.title Events
-
       = active_link_to admin_authors_path, wrap_tag: :li do
         i.fa.fa-users
         span.title Authors
-
       = active_link_to admin_posts_path, wrap_tag: :li do
         i.fa.fa-files-o
         span.title Posts
-
       = active_link_to admin_post_sections_path, wrap_tag: :li do
         i.fa.fa-tags
         span.title Post sections
-
       = active_link_to admin_blog_posts_path, wrap_tag: :li do
         i.fa.fa-pencil
         span.title Blog Posts
-
       = active_link_to admin_countries_path, wrap_tag: :li do
         i.fa.fa-globe
         span.title Countries
-
       = active_link_to admin_charts_path, wrap_tag: :li do
         i.fa.fa-arrows-h
         span.title Economic focus
-
       = active_link_to admin_central_banks_path, wrap_tag: :li do
         i.fa.fa-dollar
         span.title Central banks
-
       = active_link_to admin_links_path, wrap_tag: :li do
         i.fa.fa-external-link-square
         span.title Links
-
-
       = active_link_to admin_pages_path, wrap_tag: :li do
         i.fa.fa-file-text-o
         span.title Pages
 
+      li.heading
+        h3.uppercase Marketing & Sales
+      = active_link_to admin_sales_managers_path, wrap_tag: :li do
+        i.fa.fa-bullhorn
+        span.title Sales managers
+      = active_link_to admin_users_path, wrap_tag: :li do
+        i.fa.fa-group
+        span.title Users
+      = active_link_to admin_email_alerts_path, wrap_tag: :li do
+        i.fa.fa-envelope
+        span.title Manual Email Alerts
+      = active_link_to admin_email_alert_schedules_path, wrap_tag: :li do
+        i.fa.fa-paper-plane-o
+        span.title Automatic Email Alerts
+      = active_link_to admin_pdf_email_alerts_path, wrap_tag: :li do
+        i.fa.fa-file-pdf-o
+        span.title Pdf Email Alerts
+
+      li.heading
+        h3.uppercase Configuration
       = active_link_to admin_site_settings_path, wrap_tag: :li do
         i.fa.fa-cogs
         span.title Site settings

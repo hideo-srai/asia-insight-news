@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151028222356) do
+ActiveRecord::Schema.define(version: 20151127235036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -236,6 +236,15 @@ ActiveRecord::Schema.define(version: 20151028222356) do
   end
 
   add_index "posts", ["slug"], name: "index_posts_on_slug", using: :btree
+
+  create_table "sales_managers", force: true do |t|
+    t.string   "email"
+    t.string   "name"
+    t.boolean  "email_registrants", default: true
+    t.boolean  "trial_registrants", default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "seed_migration_data_migrations", force: true do |t|
     t.string   "version"

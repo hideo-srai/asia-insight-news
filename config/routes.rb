@@ -26,6 +26,27 @@ Rails.application.routes.draw do
     resources :pages, only: [:index, :edit, :update]
     resources :charts
 
+    resources :sales_managers
+    resources :users, only: [:index, :edit, :update] do
+      get 'export', action: :export, on: :collection
+    end
+    resources :email_alerts, path: 'manual-email-alerts', only: [:new, :index, :show, :destroy] do
+      get 'common-settings', action: 'common_settings'
+      put 'common-settings', action: 'update_common_settings'
+
+      get 'custom-texts', action: 'custom_texts'
+      put 'custom-texts', action: 'update_custom_texts'
+    end
+
+    resources :email_alert_schedules, path: 'email-alerts-schedule', only: [:index, :new, :show, :create, :update, :destroy, :edit]
+    resources :pdf_email_alerts, path: 'pdf-alerts', only: [:index, :new, :create] do
+      member do
+        get :preview
+        put 'send', action: 'send_pdf'
+      end
+    end
+
+
     resources :site_settings, path: 'settings', only: [:index, :update]
   end
 
