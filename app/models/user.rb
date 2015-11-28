@@ -8,6 +8,18 @@ class User < ActiveRecord::Base
   validates :name, length: { maximum: 255 }
   validates :username, presence: true
 
+  enum user_group: { subscriber: 'subscriber',
+                     trialist: 'trialist',
+                     trial_registrant: 'trial_registrant',
+                     email_registrant: 'email_registrant',
+                     test: 'test' }
+
+   def user_group=(value)
+     self.user_group_changed_at = Time.zone.now
+     self.previous_user_group = self.user_group_was
+     super(value)
+   end
+
   def cas_extra_attributes=(extra_attributes)
     extra_attributes.each do |name, value|
       case name.to_sym
