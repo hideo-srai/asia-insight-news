@@ -19,7 +19,6 @@ $red: #e02222
   width: 240px
 
 .page-sidebar
-  position: fixed
   .sidebar-toggler
     margin-bottom: 15px
 
@@ -99,6 +98,15 @@ ul.page-sidebar-menu > li
   i, .arrow::before
     color: #fff !important
 
+  &.heading
+    padding: 10px 15px
+    border-bottom: 1px #555 solid
+    h3
+      color: #999
+      margin: 0
+      padding: 0
+      font-size: 17px
+      font-weight: 300
 
 .form
   .remove-image
@@ -434,7 +442,7 @@ input[type=radio], input[type=checkbox]
   .form-control
     width: 110px
     display: inline-block
-    
+
 .form-group.boolean
   label
     display: block
@@ -447,4 +455,3 @@ input[type=radio], input[type=checkbox]
   .link
     width: 60% !important
     overflow: hidden
-
