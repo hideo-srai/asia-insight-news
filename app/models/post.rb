@@ -16,6 +16,9 @@ class Post < ActiveRecord::Base
   has_many :authors_posts
   has_many :authors, through: :authors_posts
 
+  has_many :email_alerts_posts
+  has_many :email_alerts, through: :email_alerts_posts
+
   validates :headline, :byline, length: { maximum: 255 }
   validates :cover_description, length: { maximum: 1_000 }
   validates :headline, :content, presence: true
@@ -83,6 +86,10 @@ class Post < ActiveRecord::Base
     countries.map(&:name).join(', ')
   end
 
+  def headline_with_alerted_mark
+    # "#{self.headline} #{self.automatic_email_alerts.count > 0 ? '<b>(alerted with auto mailing)</b>' : ''}".html_safe
+    "#{self.headline} #{self.email_alerts.count > 0 ? '<b>(alerted with auto mailing)</b>' : ''}".html_safe
+  end
 
   protected
 
