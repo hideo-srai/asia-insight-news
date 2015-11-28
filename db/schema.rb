@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151128004617) do
+ActiveRecord::Schema.define(version: 20151128103612) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,6 +114,15 @@ ActiveRecord::Schema.define(version: 20151128004617) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "flag_url"
+  end
+
+  create_table "email_alert_schedules", force: true do |t|
+    t.text     "user_groups"
+    t.datetime "send_at"
+    t.text     "greeting_message"
+    t.string   "days_of_week"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "email_alerts", force: true do |t|
