@@ -7,6 +7,8 @@ class Post < ActiveRecord::Base
   ranks :rank
   is_impressionable counter_cache: true, column_name: :views
 
+  enum visibility: { green: 'green', yellow: 'yellow', red: 'red', silver: 'silver' }
+
   before_save :set_published_at
 
   has_and_belongs_to_many :countries, join_table: :post_countries
@@ -51,7 +53,6 @@ class Post < ActiveRecord::Base
   scope :by_views,            -> { order('views DESC') }
   scope :in_ticker,           -> { where(in_ticker: true) }
 
-
   class << self
     def pageviews
       Impression.where(impressionable_type: 'Post').where.not(impressionable_id: nil).count
@@ -89,6 +90,14 @@ class Post < ActiveRecord::Base
   def headline_with_alerted_mark
     # "#{self.headline} #{self.automatic_email_alerts.count > 0 ? '<b>(alerted with auto mailing)</b>' : ''}".html_safe
     "#{self.headline} #{self.email_alerts.count > 0 ? '<b>(alerted with auto mailing)</b>' : ''}".html_safe
+  end
+
+  def visible_for?(user)
+    if user.nil?
+      self.green? || (self.yellow? && self.published_at <= 2.days.ago) || (self.red? && self.published_at <= 7.days.ago)
+    else
+      true
+    end
   end
 
   protected

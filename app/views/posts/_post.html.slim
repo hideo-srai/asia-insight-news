@@ -1,3 +1,4 @@
+- post_visible = post.visible_for? current_user
 article.news-article
   header
     div.datetime
@@ -8,5 +9,10 @@ article.news-article
         = image_tag(post.cover.url(:main), height: '92', width: '144')
       - else
         = image_tag(post.countries.first.flag_url, height: '92', width: '144')
-    .article-title = link_to post_path(post) do
-      h1= post.headline
+    - if post_visible
+      .article-title = link_to post_path(post) do
+        h1 = post.headline
+    -else
+      .article-title
+        a href="" data-open-premium-post-modal=""
+          h1 = post.headline
