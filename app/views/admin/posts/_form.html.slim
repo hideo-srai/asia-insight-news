@@ -1,6 +1,8 @@
 = simple_form_for [:admin, @post], html: { class: 'form form-horizontal' }, wrapper: :horizontal_form do |f|
   .form-body
 
+    = render 'form_visibility_control', f: f
+
     = f.input :published, as: :boolean, label: 'Published?'
     = f.input :published_at, as: :string, label: 'Publication date & time', input_html: { value: (l(@post.published_at, format: :post_edit) if @post.published_at), class: 'datepicker', 'data-datetime-picker' => true }
 

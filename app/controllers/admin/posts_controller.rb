@@ -82,7 +82,7 @@ class Admin::PostsController < AdminController
     p = params.require(:post).permit(:place, :cover, :remove_cover, :cover_remove, :headline, :byline, :content,
                                  :featured_level, :in_digest, :published, :published_at, :is_breaking_news, :authors_pick,
                                  :cover_description, :cover_credits, :video_mp4, :video_webm, :seo_title, :seo_keywords, :seo_description,
-                                 :tag_list, :author_ids_ordered, :in_ticker, :in_carousel,
+                                 :tag_list, :author_ids_ordered, :in_ticker, :in_carousel, :visibility,
                                  author_ids: [], post_section_ids: [], country_ids: [] )
 
     if p['author_ids_ordered'].present?
