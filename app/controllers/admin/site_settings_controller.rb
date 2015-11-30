@@ -1,6 +1,7 @@
 class Admin::SiteSettingsController < AdminController
   def index
     @site_settings = SiteSetting.order(:id)
+    @twitter_accounts = TwitterAccount.all
 
     respond_to do |format|
       format.html { render 'index' }

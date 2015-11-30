@@ -50,6 +50,33 @@ class Admin::PostsController < AdminController
     redirect_to admin_posts_path, flash: { success: 'Post was successfully removed.' }
   end
 
+  def new_twitter_alert
+    @post = Post.friendly.find(params[:post_id])
+    @twitter_alert_form = Admin::TwitterAlertForm.new
+    render 'twitter_alerts'
+  end
+
+  def alert_via_twitter
+    @post = Post.friendly.find(params[:post_id])
+    @twitter_alert_form = Admin::TwitterAlertForm.new(twitter_alert_form_params)
+
+    if @twitter_alert_form.valid? && TwitterAccount.has_twitter_account?
+      begin
+        TwitterPoster.new(twitter_alert_form_params[:twitter_account_id]).tweet_post(@post, @twitter_alert_form.twitter_text)
+
+        redirect_to edit_admin_post_path(@post), flash: { success: 'Post was successfully tweeted' }
+
+        return
+      rescue StandardError => e
+        flash[:error] = "Twitter: #{e.message}"
+      end
+    else
+      flash[:error] = "Can't tweet. You have no twitter account connected or tweet text is empty"
+    end
+
+    render 'twitter_alerts'
+  end
+
   protected
 
 
@@ -91,6 +118,10 @@ class Admin::PostsController < AdminController
     p.delete 'author_ids_ordered'
 
     p
+  end
+
+  def twitter_alert_form_params
+    params.require(:admin_twitter_alert_form).permit(:twitter_text, :twitter_account_id)
   end
 
   def Post

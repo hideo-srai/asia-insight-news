@@ -8,6 +8,8 @@ gem 'pg'
 gem 'devise'
 gem 'devise_cas_authenticatable'
 gem 'devise_ldap_authenticatable'
+gem 'omniauth-twitter'
+gem 'twitter'
 
 gem 'ckeditor'
 
@@ -38,6 +40,9 @@ gem 'ranked-model'
 
 gem 'mechanize'
 gem 'gon'
+gem 'ice_cube'
+
+gem 'mailgun'
 
 gem 'slim'
 gem 'addressable'

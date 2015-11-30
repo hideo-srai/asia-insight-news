@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  has_one :user_setting, dependent: :destroy
+  accepts_nested_attributes_for :user_setting
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable #:registerable, :recoverable,
   #:ldap_authenticatable,
@@ -13,6 +16,11 @@ class User < ActiveRecord::Base
                      trial_registrant: 'trial_registrant',
                      email_registrant: 'email_registrant',
                      test: 'test' }
+
+  def self.find_all_to_notify(user_groups)
+    self.joins('INNER JOIN user_settings ON (user_settings.user_id = users.id AND (user_settings.email_alerts=true OR user_settings.email_alerts is NULL))')
+        .where(user_group: user_groups)
+  end
 
    def user_group=(value)
      self.user_group_changed_at = Time.zone.now

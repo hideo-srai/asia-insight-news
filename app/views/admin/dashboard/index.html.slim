@@ -1,5 +1,7 @@
 = render 'header_and_breadcrumbs'
 
+- unless TwitterAccount.has_twitter_account?
+  = render 'admin/connect_to_twitter_alert'
 .row
   .col-md-4
     .dashboard-stat.blue

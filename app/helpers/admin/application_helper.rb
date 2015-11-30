@@ -39,4 +39,12 @@ module Admin::ApplicationHelper
 
     content_tag :ul, raw(r.join), class: 'paginate-per'
   end
+
+  def prepare_for_html(message)
+    if message.present? && message.is_a?(String)
+      message.gsub("\r\n", '<br>')
+    else
+      message
+    end
+  end
 end

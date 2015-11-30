@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151129152513) do
+ActiveRecord::Schema.define(version: 20151130115241) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,19 @@ ActiveRecord::Schema.define(version: 20151129152513) do
 
   add_index "authors_posts", ["author_id"], name: "index_authors_posts_on_author_id", using: :btree
   add_index "authors_posts", ["post_id"], name: "index_authors_posts_on_post_id", using: :btree
+
+  create_table "automatic_email_alerts", force: true do |t|
+    t.integer  "email_alert_schedule_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "automatic_email_alerts_posts", force: true do |t|
+    t.integer  "automatic_email_alert_id"
+    t.integer  "post_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "blog_posts", force: true do |t|
     t.string   "cover"
@@ -328,6 +341,24 @@ ActiveRecord::Schema.define(version: 20151129152513) do
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
+
+  create_table "twitter_accounts", force: true do |t|
+    t.string   "access_token"
+    t.string   "username"
+    t.string   "access_token_secret"
+    t.string   "uid"
+    t.string   "url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_settings", force: true do |t|
+    t.integer  "user_id"
+    t.boolean  "email_alerts", default: true
+    t.boolean  "cookie",       default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",    null: false

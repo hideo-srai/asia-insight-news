@@ -23,6 +23,9 @@ $(document).ready(function(){
   var wWidth = $(window).width();
   var wHeight = $(window).height();
 
+  window.PopupsManager.createModals();
+  window.PopupsManager.initHandlers();
+
   var registerModal = new Modal("[data-register-modal]");
   var welcomeModal  = new Modal("[data-welcome-modal]");
 

@@ -11,6 +11,7 @@
 #= require 'frontend/graph'
 #= require 'frontend/social_sharer'
 #= require 'frontend/modal'
+#= require 'frontend/popups_manager'
 #= require 'frontend/posts'
 #= require 'frontend/blog_posts'
 #= require 'frontend/app'

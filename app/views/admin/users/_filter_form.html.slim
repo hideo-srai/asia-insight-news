@@ -9,4 +9,4 @@
     /.col-md-2
       = f.input :created_at_lteq, as: :string, input_html: { value: ltime(f.object.created_at_lteq), class: 'datepicker form-control', 'data-datetime-picker' => true }, label: false, placeholder: 'Added Date to', required: false
     .col-md-1
-      = f.submit 'Filter', class: 'btn btn-success submit-button'
+      = f.submit 'Filter', class: 'btn btn-success'

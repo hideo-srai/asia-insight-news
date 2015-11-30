@@ -20,14 +20,10 @@ header#header
       = link_to 'Contact', page_path(slug: 'contact')
       = link_to 'About Us', page_path(slug: 'about-us')
 
-      a.subscribe(href="#" data-open-register-modal)
-        | Sign Up
-
-      /- if user_signed_in?
-        = link_to destroy_user_session_path, class: 'login' do
-          i.icon.icon-lock-empty
+      - if user_signed_in?
+        = link_to destroy_user_session_path do
           | Logout
-      /- else
-        = link_to new_user_session_path, class: 'login'  do
-          i.icon.icon-lock-empty
-          | Login
+      - else
+        = link_to 'Login', new_user_session_url
+        a.subscribe(href="#" data-open-free-trial-modal)
+          | Sign Up

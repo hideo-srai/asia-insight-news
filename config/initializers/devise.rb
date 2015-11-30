@@ -1,7 +1,7 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
-  # ==> LDAP Configuration 
+  # ==> LDAP Configuration
   config.ldap_logger = true
   config.ldap_create_user = true
   # config.ldap_update_password = true
@@ -10,7 +10,7 @@ Devise.setup do |config|
   # config.ldap_check_attributes = false
   config.ldap_use_admin_to_bind = true
   # config.ldap_ad_group_check = false
-  
+
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
@@ -264,7 +264,7 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 
-  CAS_APP_KEY = 'ISGT'
+  CAS_APP_KEY = 'AISGT'
 
   # DEVELOPMENT MODE
   config.cas_base_url = 'https://sso.deutsche-boerse.com/cas/'

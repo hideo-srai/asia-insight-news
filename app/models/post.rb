@@ -21,6 +21,10 @@ class Post < ActiveRecord::Base
   has_many :email_alerts_posts
   has_many :email_alerts, through: :email_alerts_posts
 
+  has_many :automatic_email_alerts_posts, dependent: :destroy
+  has_many :automatic_email_alerts, through: :automatic_email_alerts_posts
+
+  validates :visibility, presence: true
   validates :headline, :byline, length: { maximum: 255 }
   validates :cover_description, length: { maximum: 1_000 }
   validates :headline, :content, presence: true
@@ -87,9 +91,14 @@ class Post < ActiveRecord::Base
     countries.map(&:name).join(', ')
   end
 
+  def should_alert_via_twitter?
+    self.published? && !self.alerted_via_twitter
+  end
+
   def headline_with_alerted_mark
     # "#{self.headline} #{self.automatic_email_alerts.count > 0 ? '<b>(alerted with auto mailing)</b>' : ''}".html_safe
-    "#{self.headline} #{self.email_alerts.count > 0 ? '<b>(alerted with auto mailing)</b>' : ''}".html_safe
+    sufix = automatic_email_alerts.count > 0 ? ' <b>(alerted with auto mailing)</b>' : ''
+    "#{headline}#{sufix}"
   end
 
   def visible_for?(user)

@@ -1,11 +1,12 @@
 class FrontController < ApplicationController
-  before_action :prepare_new_subscriber, :fetch_search_filter, :prepare_ticker_data, :prepare_common_js_data
+  before_action :prepare_new_subscriber, :fetch_search_filter, :prepare_common_js_data
   before_action :check_sso_registration_params
   layout 'front'
   #before_action :authenticate_user!
 
   def prepare_new_subscriber
     @subscriber = Subscriber.new
+    @new_user = User.new(user_group: 'trial_registrant')
   end
 
   protected

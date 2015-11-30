@@ -5,8 +5,10 @@ Rails.application.routes.draw do
   devise_for :users,
              path_names: { sign_in: 'signin', sign_up: 'singup', sign_out: 'signout' },
              controllers: { cas_sessions: 'cas_sessions' }
+  get 'auth/twitter', as: :twitter_auth
+  get 'auth/twitter/callback', to: 'twitter#create'
+  delete 'auth/twitter/:id', to: 'twitter#destroy', as: :remove_twitter
 
-  root to: 'posts#index', is_home_page: true
   get 'sitemap' => 'site#sitemap', format: :xml
 
   get 'admin', to: redirect('/admin/dashboard')
@@ -15,7 +17,10 @@ Rails.application.routes.draw do
 
     get 'digest' => 'dashboard#digest', as: :digest
 
-    resources :posts
+    resources :posts do
+      get 'twitter-alerts', action: :new_twitter_alert
+      put 'twitter-alerts', action: :alert_via_twitter
+    end
     resources :blog_posts
     resources :authors
     resources :post_sections, path: 'sections'
@@ -66,8 +71,16 @@ Rails.application.routes.draw do
   resources :central_banks, only: :index, path: 'central-banks'
   resources :authors, only: [:show]
   resources :subscribers, only: [:create]
+  resource  :user, only: [:create, :edit, :update] do
+    collection do
+      post :short_create
+      post :invite_request
+    end
+  end
 
   get 'search' => 'search#index', as: :search
 
   get ':slug' => 'pages#show', as: :page
+
+  root to: 'posts#index', is_home_page: true
 end
