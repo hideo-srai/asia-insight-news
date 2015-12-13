@@ -1,6 +1,8 @@
 class FrontController < ApplicationController
   before_action :prepare_new_subscriber, :fetch_search_filter, :prepare_common_js_data
   before_action :check_sso_registration_params
+  before_action :set_cookies
+
   layout 'front'
   #before_action :authenticate_user!
 
@@ -47,5 +49,9 @@ class FrontController < ApplicationController
     if sso_u.present? && sso_a.present?
       redirect_to new_user_session_path(sso_u: sso_u, sso_a: sso_a)
     end
+  end
+
+  def set_cookies
+    CookiesWriter.new(cookies, current_user).set_cookies
   end
 end

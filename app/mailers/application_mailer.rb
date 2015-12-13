@@ -3,8 +3,12 @@ class ApplicationMailer < ActionMailer::Base
 
   def new_subscriber_email(subscriber)
     @subscriber = subscriber
-    mail(to: Mni::Application.config.new_subscribers_email,
-         subject:  'MNI Asia Insight / New Subscriber')
+    @emails = SalesManager.pluck(:email)
+
+    if @emails.any?
+      mail(to: @emails.join(', '),
+           subject:  'MNI Asia Insight / New Subscriber')
+    end
   end
 
   def daily_new_subscribers_list(csv_content)

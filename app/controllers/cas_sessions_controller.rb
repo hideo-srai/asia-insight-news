@@ -1,6 +1,22 @@
 require 'addressable/uri'
 
 class CasSessionsController < Devise::CasSessionsController
+  def new
+    session[:redirect_url] = request.referrer
+    super
+  end
+
+  def service
+    binding.pry
+    if session[:redirect_url].present?
+      url = session[:redirect_url]
+      session[:redirect_url] = nil
+      warden.authenticate!(:scope => resource_name)
+      redirect_to url
+      return
+    end
+    super
+  end
 
   private
 

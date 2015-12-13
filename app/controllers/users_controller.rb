@@ -13,7 +13,6 @@ class UsersController < FrontController
 
       MailgunService.new.send_subscription_message(@new_user) if @new_user.user_setting.email_alerts
 
-
       render '_success', layout: false
     else
       flash[:error] = 'This email is invalid or has been already used'

@@ -2,20 +2,24 @@ class User < ActiveRecord::Base
   has_one :user_setting, dependent: :destroy
   accepts_nested_attributes_for :user_setting
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable #:registerable, :recoverable,
-  #:ldap_authenticatable,
-
   devise :cas_authenticatable
 
   validates :name, length: { maximum: 255 }
-  validates :username, presence: true
+  validates :email, presence: true
 
   enum user_group: { subscriber: 'subscriber',
                      trialist: 'trialist',
                      trial_registrant: 'trial_registrant',
                      email_registrant: 'email_registrant',
                      test: 'test' }
+
+  scope :subscribers, -> { where(user_group: :subscriber) }
+  scope :trialists,   -> { where(user_group: :trialist) }
+  scope :in_sso,      -> { where(user_group: [:subscriber, :trialist]) }
+
+  before_create :set_default_params
+  after_commit :update_mailgun_recipient, on: [:create, :update]
+  after_destroy :remove_mailgun_recipient
 
   def self.find_all_to_notify(user_groups)
     self.joins('INNER JOIN user_settings ON (user_settings.user_id = users.id AND (user_settings.email_alerts=true OR user_settings.email_alerts is NULL))')
@@ -31,11 +35,40 @@ class User < ActiveRecord::Base
   def cas_extra_attributes=(extra_attributes)
     extra_attributes.each do |name, value|
       case name.to_sym
-        when :fullname
-          self.fullname = value
-        when :email
-          self.email = value
+      when :fullname
+        self.fullname = value
+      when :email
+        self.email = value
       end
+    end
+  end
+
+  def settings
+    self.user_setting ||= UserSetting.create(UserSetting::DEFAULT)
+  end
+
+  def cookies_enabled?
+    settings.cookie
+  end
+
+  private
+
+  def set_default_params
+    self.user_group ||= :trialist
+    self.user_group_changed_at ||= Time.zone.now
+    # self.sign_up_at = Time.zone.now
+    self.user_setting ||= UserSetting.create(UserSetting::DEFAULT)
+  end
+
+  def remove_mailgun_recipient
+    MailgunService.new.remove_member(self, self.user_group)
+  end
+
+  def update_mailgun_recipient
+    if self.user_setting.email_alerts
+      MailgunService.new.move_member(self)
+    else
+      remove_mailgun_recipient
     end
   end
 end
