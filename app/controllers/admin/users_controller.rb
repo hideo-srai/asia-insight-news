@@ -3,7 +3,6 @@ class Admin::UsersController < AdminController
   def index
     users = User.all.order('created_at desc')
     @q = users.search(params[:q])
-
     @users = @q.result.paginate(paginate_params)
   end
 
@@ -36,6 +35,6 @@ class Admin::UsersController < AdminController
   end
 
   def user_params
-    params.require(:user).permit(:user_group, :expires_at)
+    params.require(:user).permit(:user_group, :expires_at, :delivery_type)
   end
 end

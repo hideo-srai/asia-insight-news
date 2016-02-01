@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
                      email_registrant: 'email_registrant',
                      test: 'test' }
 
+  enum delivery_type: { standard: 'standard', instant: 'instant', full: 'full', full_instant: 'full_instant' }
+
   scope :subscribers, -> { where(user_group: :subscriber) }
   scope :trialists,   -> { where(user_group: :trialist) }
   scope :in_sso,      -> { where(user_group: [:subscriber, :trialist]) }
@@ -31,6 +33,15 @@ class User < ActiveRecord::Base
      self.previous_user_group = self.user_group_was
      super(value)
    end
+
+  def delivery_type=(value)
+    self.previous_delivery_type = self.delivery_type_was
+    super(value)
+  end
+
+  def self.user_groups_instant
+    return ['subscriber_instant', 'subscriber_full_instant', 'trialist_instant', 'trialist_full_instant']
+  end
 
   def cas_extra_attributes=(extra_attributes)
     extra_attributes.each do |name, value|
@@ -58,10 +69,12 @@ class User < ActiveRecord::Base
     self.user_group_changed_at ||= Time.zone.now
     # self.sign_up_at = Time.zone.now
     self.user_setting ||= UserSetting.create(UserSetting::DEFAULT)
+    self.delivery_type ||= "standard"
+    self.previous_delivery_type ||= "standard"
   end
 
   def remove_mailgun_recipient
-    MailgunService.new.remove_member(self, self.user_group)
+    MailgunService.new.remove_member(self, self.user_group, self.delivery_type)
   end
 
   def update_mailgun_recipient

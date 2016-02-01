@@ -18,22 +18,52 @@ class MailgunService
   end
 
   def create_member(user, user_group)
-    @mailgun.list_members("#{PREFIX}#{user_group}@#{@credentials['domain']}").add user.email
+    mg_user_group = user_group + ( user.delivery_type.to_s == '' || user.delivery_type.to_s == 'standard' ? '' : "_#{user.delivery_type}" )
+    @mailgun.list_members("#{PREFIX}#{mg_user_group}@#{@credentials['domain']}").add user.email
+    Rails.logger.debug "#{user.email} joining #{PREFIX}#{mg_user_group}@#{@credentials['domain']} "
   rescue Mailgun::Error => e
     Rails.logger.info "#{user.email} #{e.message}"
   end
 
   def move_member(user)
-    remove_member(user, user.previous_user_group)
+    remove_member(user, user.previous_user_group, user.previous_delivery_type)
     create_member(user, user.user_group)
   end
 
-  def remove_member(user, user_group)
+  def remove_member(user, user_group, delivery_type)
+    mg_user_group = user_group + ( delivery_type.to_s == '' || delivery_type.to_s == 'standard' ? '' : "_#{delivery_type}" )
     if user_group.present?
-      @mailgun.list_members("#{PREFIX}#{user_group}@#{@credentials['domain']}").remove user.email
+      @mailgun.list_members("#{PREFIX}#{mg_user_group}@#{@credentials['domain']}").remove user.email
+      Rails.logger.debug "#{user.email} de-joining #{PREFIX}#{mg_user_group}@#{@credentials['domain']} "
     end
   rescue Mailgun::Error => e
     Rails.logger.info "#{user.email} #{e.message}"
+  end
+
+  def send_post(post, lists, subject, greeting)
+    summary = ActionView::Base.new(
+        Rails.configuration.paths["app/views"]).render(
+        partial: "admin/mailgun/newsletter_singlepost", format: :html, layout: 'layouts/mailgun',
+        locals: { post: post, greeting: greeting })
+    summary = ActiveSupport::SafeBuffer.new(summary).to_str
+
+    summary_full = ActionView::Base.new(
+        Rails.configuration.paths["app/views"]).render(
+        partial: "admin/mailgun/newsletter_singlepost_full", format: :html, layout: 'layouts/mailgun',
+        locals: { post: post, greeting: greeting })
+    summary_full = ActiveSupport::SafeBuffer.new(summary_full).to_str
+
+    lists.each do |list|
+      if list.include? '_full'
+        @mailgun.messages.send_email({ to: "#{PREFIX}#{list}@#{@credentials['domain']}", subject: subject,
+                                       html: summary_full, from: EMAIL_FROM})
+      else
+        @mailgun.messages.send_email({ to: "#{PREFIX}#{list}@#{@credentials['domain']}", subject: subject,
+                                       html: summary, from: EMAIL_FROM})
+      end
+    end
+  rescue Mailgun::Error => e
+    Rails.logger.info "Error occurred while sending posts: #{e.message}"
   end
 
   def send_posts(posts, lists, subject, greeting)
@@ -43,9 +73,20 @@ class MailgunService
         locals: { posts: posts, greeting: greeting })
     summary = ActiveSupport::SafeBuffer.new(summary).to_str
 
+    summary_full = ActionView::Base.new(
+        Rails.configuration.paths["app/views"]).render(
+        partial: 'admin/mailgun/newsletter_full', format: :html, layout: 'layouts/mailgun',
+        locals: { posts: posts, greeting: greeting })
+    summary_full = ActiveSupport::SafeBuffer.new(summary_full).to_str
+
     lists.each do |list|
-      @mailgun.messages.send_email({ to: "#{PREFIX}#{list}@#{@credentials['domain']}", subject: subject,
-                                     html: summary, from: EMAIL_FROM})
+      if list.include? '_full'
+        @mailgun.messages.send_email({ to: "#{PREFIX}#{list}@#{@credentials['domain']}", subject: subject,
+                                       html: summary_full, from: EMAIL_FROM})
+      else
+        @mailgun.messages.send_email({ to: "#{PREFIX}#{list}@#{@credentials['domain']}", subject: subject,
+                                       html: summary, from: EMAIL_FROM})
+      end
     end
   rescue Mailgun::Error => e
     Rails.logger.info "Error occurred while sending posts: #{e.message}"

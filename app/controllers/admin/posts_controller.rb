@@ -91,9 +91,15 @@ class Admin::PostsController < AdminController
       when 'Publish'
         post.published = true
         post.published_at ||= Time.zone.now
-        post.save
+        if MailgunService.new.send_post post, User.user_groups_instant, post.headline, 'New post has been published.'
+          email_sent ||= 'Instant email alert is sent successfully.'
+        else
+          email_sent ||= 'Can not send instant email alert.'
+        end
 
-        flash[:success] = 'Post was successfully published'
+        flash[:success] ||= 'Post was successfully published. ' + email_sent
+
+        post.save
     end
 
     redirect_to redirect_path
