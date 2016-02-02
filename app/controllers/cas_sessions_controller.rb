@@ -7,7 +7,6 @@ class CasSessionsController < Devise::CasSessionsController
   end
 
   def service
-    binding.pry
     if session[:redirect_url].present?
       url = session[:redirect_url]
       session[:redirect_url] = nil
