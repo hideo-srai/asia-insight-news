@@ -25,7 +25,7 @@ namespace :automatic_email_alerts do
           auto_email_alert = AutomaticEmailAlert.create(email_alert_schedule: schedule)
           posts.each { |post| AutomaticEmailAlertsPost.create(post: post, automatic_email_alert: auto_email_alert) }
 
-          if MailgunService.new.send_posts posts_hash, schedule.user_groups, 'MNI Euro Insight / Latest news',
+          if MailgunService.new.send_posts posts_hash, schedule.user_groups, 'MNI Asia Insight / Latest news',
                                            prepare_for_html(schedule.greeting_message)
             log 'Auto Email alert was successfully sent'
           else

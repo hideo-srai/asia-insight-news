@@ -27,7 +27,7 @@ class Admin::UsersController < AdminController
     csv_file = CSVBuilder.build_from_users @q.result
 
     send_data csv_file, type: 'text/csv; charset=iso-8859-1; header=present',
-              disposition: "attachment;filename=MNI-Euro-Insight-subscribers-export-#{Time.zone.now.strftime('%Y_%m_%d_%H_%M')}.csv"
+              disposition: "attachment;filename=MNI-Asia-Insight-subscribers-export-#{Time.zone.now.strftime('%Y_%m_%d_%H_%M')}.csv"
   end
 
   def find_user

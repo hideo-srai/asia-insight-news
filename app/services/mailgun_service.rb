@@ -3,7 +3,7 @@ require 'mailgun'
 class MailgunService
   PREFIX = "euro_#{Rails.env}_"
 
-  EMAIL_FROM = 'MNI Euro Insight Notifications <notifications@mni-news.com>'
+  EMAIL_FROM = 'MNI Asia Insight Notifications <notifications@mni-news.com>'
 
   attr_accessor :mailgun
 
@@ -20,7 +20,6 @@ class MailgunService
   def create_member(user, user_group)
     mg_user_group = user_group + ( user.delivery_type.to_s == '' || user.delivery_type.to_s == 'standard' ? '' : "_#{user.delivery_type}" )
     @mailgun.list_members("#{PREFIX}#{mg_user_group}@#{@credentials['domain']}").add user.email
-    Rails.logger.debug "#{user.email} joining #{PREFIX}#{mg_user_group}@#{@credentials['domain']} "
   rescue Mailgun::Error => e
     Rails.logger.info "#{user.email} #{e.message}"
   end
@@ -34,7 +33,6 @@ class MailgunService
     mg_user_group = user_group + ( delivery_type.to_s == '' || delivery_type.to_s == 'standard' ? '' : "_#{delivery_type}" )
     if user_group.present?
       @mailgun.list_members("#{PREFIX}#{mg_user_group}@#{@credentials['domain']}").remove user.email
-      Rails.logger.debug "#{user.email} de-joining #{PREFIX}#{mg_user_group}@#{@credentials['domain']} "
     end
   rescue Mailgun::Error => e
     Rails.logger.info "#{user.email} #{e.message}"
@@ -99,7 +97,7 @@ class MailgunService
         locals: { greeting: pdf_alert.greeting_message })
     summary = ActiveSupport::SafeBuffer.new(summary).to_str
     pdf_alert.user_groups.each do |list|
-      @mailgun.messages.send_email({ to: "#{PREFIX}#{list}@#{@credentials['domain']}", subject: 'MNI Euro Insight / Weekly Briefing',
+      @mailgun.messages.send_email({ to: "#{PREFIX}#{list}@#{@credentials['domain']}", subject: 'MNI Asia Insight / Weekly Briefing',
                                      html: summary, from: EMAIL_FROM, attachment: File.new(pdf_alert.file.path)})
     end
 
@@ -114,7 +112,7 @@ class MailgunService
       summary = ActiveSupport::SafeBuffer.new(summary).to_str
 
 
-      @mailgun.messages.send_email({ to: user.email, subject: 'MNI Euro Insight / Subscription',
+      @mailgun.messages.send_email({ to: user.email, subject: 'MNI Asia Insight / Subscription',
                                      html: summary, from: EMAIL_FROM})
   rescue Mailgun::Error => e
     Rails.logger.info "#{user.email} #{e.message}"

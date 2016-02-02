@@ -4,7 +4,7 @@ class PdfFileCreator
 
     return nil if posts.empty?
 
-    filename = "MNI-Euro-Insight-weekly-briefing-#{ I18n.l Date.today }.pdf"
+    filename = "MNI-Asia-Insight-weekly-briefing-#{ I18n.l Date.today }.pdf"
     generator = ArticlePdfGenerator.new(posts, date: I18n.l(Time.zone.now, format: :short))
 
     tempfile = Tempfile.new(filename)

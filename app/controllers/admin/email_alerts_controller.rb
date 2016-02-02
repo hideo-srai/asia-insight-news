@@ -11,7 +11,7 @@ class Admin::EmailAlertsController < AdminController
 
   def new
     @email_alert = EmailAlert.new
-    @email_alert.subject = 'MNI Euro Insight / Latest news'
+    @email_alert.subject = 'MNI Asia Insight / Latest news'
     @email_alert.save(validate: false)
 
     redirect_to admin_email_alert_common_settings_path(@email_alert)
