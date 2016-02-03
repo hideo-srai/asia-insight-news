@@ -91,7 +91,7 @@ class Admin::PostsController < AdminController
       when 'Publish'
         post.published = true
         post.published_at ||= Time.zone.now
-        if MailgunService.new.send_post post, User.user_groups_instant, post.headline, 'New post has been published.'
+        if MailgunService.new.send_post post, User.user_groups_instant, post.headline, ''
           email_sent ||= 'Instant email alert is sent successfully.'
         else
           email_sent ||= 'Can not send instant email alert.'
