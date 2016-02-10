@@ -5,7 +5,7 @@ h3 Email alert message
 = render 'newsletter', posts: EmailAlertsPost.find(@email_alert.email_alerts_post_ids), greeting: prepare_for_html(@email_alert.greeting_message)
 
 h3 Users notified
-- emails = User.find_all_to_notify(@email_alert.user_groups).pluck(:email)
+- emails = User.find_all_to_notify(@email_alert.user_groups)
 - if emails.any?
   == emails.map { |email| link_to email, "mailto:#{email}" }.join(',  ')
 - else

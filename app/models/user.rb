@@ -24,8 +24,11 @@ class User < ActiveRecord::Base
   after_destroy :remove_mailgun_recipient
 
   def self.find_all_to_notify(user_groups)
-    self.joins('INNER JOIN user_settings ON (user_settings.user_id = users.id AND (user_settings.email_alerts=true OR user_settings.email_alerts is NULL))')
-        .where(user_group: user_groups)
+    user_main_groups = user_groups.map {|user_group| user_group.gsub('_full', '').gsub('_full_instant', '').gsub('_instant', ''); }
+    users = self.joins('INNER JOIN user_settings ON (user_settings.user_id = users.id AND (user_settings.email_alerts=true OR user_settings.email_alerts is NULL))')
+        .where(user_group: user_main_groups)
+    emails = users.map{|user| user.email if user_groups.include? "#{user.user_group}_#{user.delivery_type}" or ['trial_registrant', 'email_registrant'].include? user.user_group }.compact
+    return emails
   end
 
    def user_group=(value)
