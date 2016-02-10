@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
                      email_registrant: 'email_registrant',
                      test: 'test' }
 
+  enum delivery_type: { standard: 'standard', instant: 'instant', full: 'full', full_instant: 'full_instant' }
+
   scope :subscribers, -> { where(user_group: :subscriber) }
   scope :trialists,   -> { where(user_group: :trialist) }
   scope :in_sso,      -> { where(user_group: [:subscriber, :trialist]) }
@@ -22,8 +24,11 @@ class User < ActiveRecord::Base
   after_destroy :remove_mailgun_recipient
 
   def self.find_all_to_notify(user_groups)
-    self.joins('INNER JOIN user_settings ON (user_settings.user_id = users.id AND (user_settings.email_alerts=true OR user_settings.email_alerts is NULL))')
-        .where(user_group: user_groups)
+    user_main_groups = user_groups.map {|user_group| user_group.gsub('_full', '').gsub('_full_instant', '').gsub('_instant', ''); }
+    users = self.joins('INNER JOIN user_settings ON (user_settings.user_id = users.id AND (user_settings.email_alerts=true OR user_settings.email_alerts is NULL))')
+        .where(user_group: user_main_groups)
+    emails = users.map{|user| user.email if user_groups.include? "#{user.user_group}_#{user.delivery_type}" or ['trial_registrant', 'email_registrant'].include? user.user_group }.compact
+    return emails
   end
 
    def user_group=(value)
@@ -31,6 +36,15 @@ class User < ActiveRecord::Base
      self.previous_user_group = self.user_group_was
      super(value)
    end
+
+  def delivery_type=(value)
+    self.previous_delivery_type = self.delivery_type_was
+    super(value)
+  end
+
+  def self.user_groups_instant
+    return ['subscriber_instant', 'subscriber_full_instant', 'trialist_instant', 'trialist_full_instant']
+  end
 
   def cas_extra_attributes=(extra_attributes)
     extra_attributes.each do |name, value|
@@ -58,10 +72,12 @@ class User < ActiveRecord::Base
     self.user_group_changed_at ||= Time.zone.now
     # self.sign_up_at = Time.zone.now
     self.user_setting ||= UserSetting.create(UserSetting::DEFAULT)
+    self.delivery_type ||= "standard"
+    self.previous_delivery_type ||= "standard"
   end
 
   def remove_mailgun_recipient
-    MailgunService.new.remove_member(self, self.user_group)
+    MailgunService.new.remove_member(self, self.user_group, self.delivery_type)
   end
 
   def update_mailgun_recipient

@@ -11,7 +11,7 @@ class Admin::EmailAlertsController < AdminController
 
   def new
     @email_alert = EmailAlert.new
-    @email_alert.subject = 'MNI Euro Insight / Latest news'
+    @email_alert.subject = 'MNI Asia Insight / Latest news'
     @email_alert.save(validate: false)
 
     redirect_to admin_email_alert_common_settings_path(@email_alert)
@@ -44,9 +44,11 @@ class Admin::EmailAlertsController < AdminController
 
     if @email_alert.update_attributes(email_alert_texts_params)
       email_alert_posts = EmailAlertsPost.find(@email_alert.email_alerts_post_ids)
+      posts_hash = email_alert_posts.map { |alert_post| { post_id: alert_post.post_id, headline: alert_post.headline, description: alert_post.description, content: Post.find(alert_post.post_id).content } }
+
       greeting_message = prepare_for_html(@email_alert.greeting_message || '')
 
-      if MailgunService.new.send_posts email_alert_posts, @email_alert.user_groups, @email_alert.subject, greeting_message
+      if MailgunService.new.send_posts posts_hash, @email_alert.user_groups, @email_alert.subject, greeting_message
         @email_alert.sent!
         flash[:success] = 'Email alert was successfully sent'
       else

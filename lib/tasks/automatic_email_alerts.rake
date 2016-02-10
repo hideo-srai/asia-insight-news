@@ -21,11 +21,11 @@ namespace :automatic_email_alerts do
         if posts.count == 0
           log 'There are no posts to send'
         else
-          posts_hash = posts.map { |post| { post_id: post.id, headline: post.headline, description: post.byline } }
+          posts_hash = posts.map { |post| { post_id: post.id, headline: post.headline, description: post.byline, content: post.content } }
           auto_email_alert = AutomaticEmailAlert.create(email_alert_schedule: schedule)
           posts.each { |post| AutomaticEmailAlertsPost.create(post: post, automatic_email_alert: auto_email_alert) }
 
-          if MailgunService.new.send_posts posts_hash, schedule.user_groups, 'MNI Euro Insight / Latest news',
+          if MailgunService.new.send_posts posts_hash, schedule.user_groups, 'MNI Asia Insight / Latest news',
                                            prepare_for_html(schedule.greeting_message)
             log 'Auto Email alert was successfully sent'
           else

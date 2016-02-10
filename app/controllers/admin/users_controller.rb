@@ -3,7 +3,6 @@ class Admin::UsersController < AdminController
   def index
     users = User.all.order('created_at desc')
     @q = users.search(params[:q])
-
     @users = @q.result.paginate(paginate_params)
   end
 
@@ -28,7 +27,7 @@ class Admin::UsersController < AdminController
     csv_file = CSVBuilder.build_from_users @q.result
 
     send_data csv_file, type: 'text/csv; charset=iso-8859-1; header=present',
-              disposition: "attachment;filename=MNI-Euro-Insight-subscribers-export-#{Time.zone.now.strftime('%Y_%m_%d_%H_%M')}.csv"
+              disposition: "attachment;filename=MNI-Asia-Insight-subscribers-export-#{Time.zone.now.strftime('%Y_%m_%d_%H_%M')}.csv"
   end
 
   def find_user
@@ -36,6 +35,6 @@ class Admin::UsersController < AdminController
   end
 
   def user_params
-    params.require(:user).permit(:user_group, :expires_at)
+    params.require(:user).permit(:user_group, :expires_at, :delivery_type)
   end
 end
