@@ -7,9 +7,10 @@ class window.PopupsManager
 
   @createModals: () ->
     @freeTrialModal = new Modal("[data-free-trial-modal]")
+    @thanksTrialModal = new Modal("[data-thanks-trial-modal]")
 
     @modals = [
-      @freeTrialModal,
+      @freeTrialModal, @thanksTrialModal
     ]
 
   @initHandlers: () ->
