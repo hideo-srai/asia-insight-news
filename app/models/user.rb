@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
     user_main_groups = user_groups.map {|user_group| user_group.gsub('_full', '').gsub('_full_instant', '').gsub('_instant', ''); }
     users = self.joins('INNER JOIN user_settings ON (user_settings.user_id = users.id AND (user_settings.email_alerts=true OR user_settings.email_alerts is NULL))')
         .where(user_group: user_main_groups)
-    emails = users.map{|user| user.email if user_groups.include? "#{user.user_group}_#{user.delivery_type}" or ['trial_registrant', 'email_registrant'].include? user.user_group }.compact
+    emails = users.map{|user| user.email if user_groups.include? "#{user.user_group}_#{user.delivery_type}" or (user_groups.include? "#{user.user_group}" and user.delivery_type.to_s.gsub('standard', '').blank?) or ['trial_registrant', 'email_registrant'].include? user.user_group }.compact
     return emails
   end
 
