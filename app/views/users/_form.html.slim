@@ -21,11 +21,11 @@ div(data-subscriber-form-wrapper)
         = f.fields_for :user_setting, (@new_user.user_setting || @new_user.build_user_setting) do |settings_builder|
           label.checkbox-label
             = settings_builder.check_box :cookie
-            / span class="#{'error' if @new_user.errors[:"user_setting.cookie"].any?}"
-            /   ' I accept
-            /   = link_to 'Terms & Conditions ', page_path(Page.find_by(code: 'terms')), target: '_blank'
-            /   ' including the
-            /   = link_to 'cookie policy', page_path(Page.find_by(code: 'policy')) + "#cookie", target: '_blank'
+            span class="#{'error' if @new_user.errors[:"user_setting.cookie"].any?}"
+              ' I accept
+              = link_to 'Terms & Conditions ', page_path(Page.find_by(code: 'terms')), target: '_blank'
+              ' including the
+              = link_to 'cookie policy', page_path(Page.find_by(code: 'policy')) + "#cookie", target: '_blank'
 
       = f.hidden_field :user_group, value: user_group
 
