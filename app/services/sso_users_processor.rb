@@ -3,7 +3,7 @@ require 'net/https'
 require 'uri'
 
 class SSOUsersProcessor
-  ROLE = 'IEUR'
+  ROLE = 'IASI'
   URL = 'https://contracts.deutsche-boerse.com/vfs/mni_user_export/user.xml'
 
   def initialize

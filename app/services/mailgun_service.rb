@@ -1,7 +1,7 @@
 require 'mailgun'
 
 class MailgunService
-  PREFIX = "euro_#{Rails.env}_"
+  PREFIX = "asia_#{Rails.env}_"
 
   EMAIL_FROM = 'MNI Asia Insight Notifications <notifications@mni-news.com>'
 
@@ -18,6 +18,7 @@ class MailgunService
   end
 
   def create_member(user, user_group)
+    Rails.logger.warn 'create mailgun member: ' + user.email + '@' + user_group
     mg_user_group = user_group + ( user.delivery_type.to_s == '' || user.delivery_type.to_s == 'standard' ? '' : "_#{user.delivery_type}" )
     @mailgun.list_members("#{PREFIX}#{mg_user_group}@#{@credentials['domain']}").add user.email
   rescue Mailgun::Error => e
@@ -30,8 +31,8 @@ class MailgunService
   end
 
   def remove_member(user, user_group, delivery_type)
-    mg_user_group = user_group + ( delivery_type.to_s == '' || delivery_type.to_s == 'standard' ? '' : "_#{delivery_type}" )
     if user_group.present?
+      mg_user_group = user_group + ( delivery_type.to_s == '' || delivery_type.to_s == 'standard' ? '' : "_#{delivery_type}" )
       @mailgun.list_members("#{PREFIX}#{mg_user_group}@#{@credentials['domain']}").remove user.email
     end
   rescue Mailgun::Error => e
